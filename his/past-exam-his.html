@@ -1,0 +1,1442 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>國中七上歷史｜跨校段考考古題互動題庫系統</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- 自動載入 GitHub 上的外部題庫檔 questions.js（若無則使用內建基礎題庫） -->
+  <script src="questions.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap');
+    body {
+      font-family: 'Noto Sans TC', sans-serif;
+      background-color: #f8fafc;
+    }
+    .paste-zone:focus {
+      outline: none;
+      border-color: #2563eb;
+      background-color: #eff6ff;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.25);
+    }
+  </style>
+</head>
+<body class="text-slate-800 antialiased min-h-screen flex flex-col">
+
+  <!-- 頂部導覽列（歷史科史冊琥珀棕主題） -->
+  <header class="bg-gradient-to-r from-amber-800 to-orange-700 text-white shadow-md sticky top-0 z-30">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-2">
+      <div class="flex items-center gap-2 cursor-pointer" onclick="goHome()">
+        <span class="text-2xl">🏛️</span>
+        <div>
+          <h1 class="text-lg md:text-xl font-bold tracking-wide">國中七上歷史｜段考考古題互動題庫</h1>
+          <p class="text-xs text-amber-100">荷西治臺・鄭氏政權・清代前期消極治臺至開港建省（114上第二次段考）</p>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-2 text-sm">
+        <button onclick="openWrongCenter()" class="bg-rose-600 hover:bg-rose-500 text-white font-bold px-3 py-1.5 rounded-lg shadow-sm transition flex items-center gap-1">
+          <span>📕 錯題複習</span>
+          <span id="headerWrongBadge" class="bg-white text-rose-700 text-xs px-1.5 py-0.2 rounded-full font-black">0</span>
+        </button>
+        <button onclick="openImageManager()" class="bg-amber-300 hover:bg-amber-200 text-slate-900 font-bold px-3 py-1.5 rounded-lg shadow-sm transition flex items-center gap-1">
+          <span>🖼️ 原圖管理</span>
+        </button>
+        <button onclick="openCloudModal()" class="bg-white/15 hover:bg-white/25 text-white font-medium px-3 py-1.5 rounded-lg transition flex items-center gap-1">
+          <span>☁️ 雲端成績設定</span>
+          <span id="cloudStatusDot" class="w-2 h-2 rounded-full bg-rose-400"></span>
+        </button>
+        <button onclick="openImportModal()" class="bg-white/15 hover:bg-white/25 text-white font-medium px-3 py-1.5 rounded-lg transition flex items-center gap-1">
+          <span>📥 題庫擴充 / 同步</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- 主內容區 -->
+  <main class="flex-1 max-w-6xl w-full mx-auto px-4 py-6">
+
+    <!-- ==================== 首頁模式選擇 ==================== -->
+    <section id="homeView" class="space-y-6">
+      
+      <!-- 頂部功能概覽與錯題本快捷 -->
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+        <div>
+          <h2 class="text-lg font-bold text-slate-800 flex items-center gap-2 flex-wrap">
+            <span>📚 選擇練習與測驗模式</span>
+            <span id="totalBankBadge" class="text-xs bg-amber-100 text-amber-800 px-2.5 py-0.5 rounded-full font-bold">載入中...</span>
+            <span id="syncSourceBadge" class="text-xs bg-blue-50 text-blue-700 border border-blue-200 px-2.5 py-0.5 rounded-full font-medium">來源偵測中</span>
+          </h2>
+          <p class="text-sm text-slate-500 mt-1">單校練習載入整份完整考卷；跨校綜合測驗固定隨機抽取 25 題；交卷後自動計分並同步雲端。</p>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-2">
+          <div class="flex items-center bg-slate-100 p-1 rounded-xl border border-slate-200">
+            <button id="modeExamBtn" onclick="setPracticeMode('exam')" class="px-3 py-1.5 rounded-lg text-sm font-bold bg-amber-700 text-white shadow-sm transition">
+              📝 正式模擬考（交卷算分）
+            </button>
+            <button id="modeInstantBtn" onclick="setPracticeMode('instant')" class="px-3 py-1.5 rounded-lg text-sm font-bold text-slate-600 hover:text-slate-900 transition">
+              ⚡ 即時練習（邊寫邊看詳解）
+            </button>
+          </div>
+
+          <button onclick="openWrongCenter()" class="bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 font-bold px-3.5 py-2 rounded-xl text-sm transition flex items-center gap-1.5 shadow-sm">
+            <span>📕 錯題複習中心</span>
+            <span id="wrongCountBadge" class="bg-rose-600 text-white text-xs px-2 py-0.5 rounded-full">0</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 單一學校完整考卷區 -->
+      <div>
+        <h3 class="text-base font-bold text-slate-700 mb-3 flex items-center gap-2">
+          <span>🏫 單一學校完整段考卷（不抽題，依原卷題號完整作答）</span>
+        </h3>
+        <div id="schoolCardsContainer" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+      </div>
+
+      <!-- 跨校綜合隨機測驗區（固定 25 題） -->
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 pb-4">
+          <div>
+            <h3 class="text-base font-bold text-slate-800 flex items-center gap-2">
+              <span>🔀 跨校綜合隨機測驗（固定 25 題・每題 4 分・滿分 100 分）</span>
+            </h3>
+            <p class="text-xs text-slate-500 mt-1">請勾選要納入抽題範圍的學校，系統將隨機抽出 25 題進行混合模擬測驗。</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <button onclick="toggleAllCrossSchools(true)" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 px-2.5 py-1.5 rounded-lg font-medium">全選</button>
+            <button onclick="toggleAllCrossSchools(false)" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 px-2.5 py-1.5 rounded-lg font-medium">全不選</button>
+            <button onclick="startCrossSchoolQuiz()" class="bg-amber-700 hover:bg-amber-800 text-white font-bold px-5 py-2.5 rounded-xl shadow-sm transition flex items-center gap-1.5 text-sm">
+              <span>🚀 開始 25 題綜合測驗</span>
+            </button>
+          </div>
+        </div>
+        <div id="crossSchoolCheckboxes" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 pt-4"></div>
+      </div>
+
+    </section>
+
+    <!-- ==================== 作答測驗區 ==================== -->
+    <section id="quizView" class="hidden space-y-4">
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 flex flex-wrap items-center justify-between gap-3 sticky top-16 z-20">
+        <div>
+          <span id="quizModeTag" class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800">模擬測驗</span>
+          <h2 id="quizTitle" class="text-base md:text-lg font-bold text-slate-800 mt-1">測驗標題</h2>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <div class="text-right">
+            <div class="text-xs text-slate-400">作答進度</div>
+            <div id="quizProgressText" class="text-sm font-bold text-slate-700">0 / 25</div>
+          </div>
+          <div class="bg-slate-100 px-3 py-1.5 rounded-xl text-center min-w-[82px]">
+            <div class="text-[10px] text-slate-400">計時</div>
+            <div id="timerDisplay" class="text-sm font-mono font-bold text-amber-700">00:00</div>
+          </div>
+          <button id="submitQuizBtn" onclick="submitQuiz()" class="bg-amber-700 hover:bg-amber-800 text-white font-bold px-4 py-2 rounded-xl shadow-sm transition text-sm">
+            ✅ 交卷並計分
+          </button>
+          <button onclick="confirmExitQuiz()" class="bg-slate-100 hover:bg-slate-200 text-slate-600 font-medium px-3 py-2 rounded-xl text-sm">
+            離開
+          </button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-4 gap-4">
+        <div id="questionsContainer" class="lg:col-span-3 space-y-4"></div>
+        <div class="lg:col-span-1">
+          <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 sticky top-36">
+            <div class="flex items-center justify-between mb-3">
+              <h3 class="font-bold text-sm text-slate-700">📋 題號答題卡</h3>
+              <span class="text-xs text-slate-400">點擊跳題</span>
+            </div>
+            <div id="answerSheetGrid" class="grid grid-cols-5 gap-1.5 max-h-[60vh] overflow-y-auto pr-1"></div>
+            <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+              <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded bg-amber-600 inline-block"></span>已作答</span>
+              <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded bg-amber-300 inline-block"></span>待確認</span>
+              <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded bg-slate-200 inline-block"></span>未作答</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 成績結算與檢討區 ==================== -->
+    <section id="resultView" class="hidden space-y-6">
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 text-center relative overflow-hidden">
+        <div class="inline-block px-3 py-1 rounded-full bg-amber-100 text-amber-800 text-xs font-bold mb-2" id="resultSubtitle">測驗完成</div>
+        <h2 class="text-2xl font-black text-slate-800" id="resultTitle">測驗標題</h2>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto my-6">
+          <div class="bg-amber-50 border border-amber-200 rounded-2xl p-4">
+            <div class="text-xs text-amber-800 font-bold">百分制換算總分</div>
+            <div id="resultScore100" class="text-3xl font-black text-amber-700 mt-1">100</div>
+          </div>
+          <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4">
+            <div class="text-xs text-slate-500 font-bold">原卷原始得分</div>
+            <div id="resultRawScore" class="text-2xl font-black text-slate-700 mt-1">100 / 100</div>
+          </div>
+          <div class="bg-blue-50 border border-blue-200 rounded-2xl p-4">
+            <div class="text-xs text-blue-700 font-bold">答對題數</div>
+            <div id="resultCorrectCount" class="text-2xl font-black text-blue-600 mt-1">25 / 25</div>
+          </div>
+          <div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-4">
+            <div class="text-xs text-emerald-700 font-bold">作答耗時</div>
+            <div id="resultTimeSpent" class="text-2xl font-black text-emerald-600 mt-1">12:30</div>
+          </div>
+        </div>
+
+        <div id="cloudSyncBanner" class="max-w-xl mx-auto mb-5 text-xs py-2 px-4 rounded-xl bg-slate-100 text-slate-600">
+          ☁️ 雲端同步狀態準備中...
+        </div>
+
+        <div class="flex flex-wrap items-center justify-center gap-3">
+          <button onclick="goHome()" class="bg-slate-800 hover:bg-slate-900 text-white font-bold px-5 py-2.5 rounded-xl text-sm transition">
+            🏠 返回首頁
+          </button>
+          <button onclick="retryCurrentQuiz()" class="bg-amber-700 hover:bg-amber-800 text-white font-bold px-5 py-2.5 rounded-xl text-sm transition">
+            🔄 重新測驗本卷
+          </button>
+          <button id="reviewWrongOnlyBtn" onclick="toggleReviewFilter()" class="bg-rose-100 hover:bg-rose-200 text-rose-800 font-bold px-5 py-2.5 rounded-xl text-sm transition">
+            🔍 只看錯題檢討
+          </button>
+          <button onclick="openWrongCenter()" class="bg-amber-100 hover:bg-amber-200 text-amber-900 font-bold px-5 py-2.5 rounded-xl text-sm transition">
+            📕 進入錯題複習中心
+          </button>
+        </div>
+      </div>
+
+      <div id="reviewContainer" class="space-y-4"></div>
+    </section>
+
+    <!-- ==================== 錯題複習中心 ==================== -->
+    <section id="wrongCenterView" class="hidden space-y-6">
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="text-2xl">📕</span>
+            <h2 class="text-xl font-black text-slate-800">歷史科錯題複習中心</h2>
+            <span id="wrongCenterTotalBadge" class="text-xs bg-rose-100 text-rose-800 px-2.5 py-0.5 rounded-full font-bold">0 題待複習</span>
+          </div>
+          <p class="text-sm text-slate-500 mt-1">自動彙整所有歷史測驗答錯的題目，可篩選學校、檢視解析或一鍵重新測驗。</p>
+        </div>
+        <div class="flex flex-wrap items-center gap-2">
+          <button onclick="startWrongQuiz('ALL')" id="startAllWrongQuizBtn" class="bg-rose-600 hover:bg-rose-700 text-white font-bold px-4 py-2.5 rounded-xl text-sm shadow-sm transition flex items-center gap-1.5">
+            <span>🚀 開始錯題重練測驗</span>
+          </button>
+          <button onclick="goHome()" class="bg-slate-800 hover:bg-slate-900 text-white font-bold px-4 py-2.5 rounded-xl text-sm transition">
+            🏠 返回首頁
+          </button>
+        </div>
+      </div>
+
+      <!-- 篩選與操作列 -->
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 flex flex-wrap items-center justify-between gap-3">
+        <div class="flex flex-wrap items-center gap-2">
+          <label class="text-xs font-bold text-slate-600">篩選學校：</label>
+          <select id="wrongFilterSchool" onchange="renderWrongCenter()" class="border border-slate-300 rounded-xl px-3 py-1.5 text-sm font-medium bg-slate-50">
+            <option value="ALL">全部學校</option>
+          </select>
+          <select id="wrongSortOrder" onchange="renderWrongCenter()" class="border border-slate-300 rounded-xl px-3 py-1.5 text-sm font-medium bg-slate-50">
+            <option value="recent">依最近錯誤時間排序</option>
+            <option value="count">依錯誤次數（高→低）排序</option>
+            <option value="num">依原卷題號排序</option>
+          </select>
+        </div>
+        <div class="flex flex-wrap items-center gap-2">
+          <button onclick="startWrongQuiz('FILTERED')" class="bg-amber-600 hover:bg-amber-700 text-white font-bold px-3.5 py-1.5 rounded-xl text-xs shadow-sm transition">
+            🎯 僅測驗目前篩選錯題
+          </button>
+          <button onclick="clearAllWrongQuestions()" class="bg-slate-100 hover:bg-rose-50 text-slate-600 hover:text-rose-700 border border-slate-200 font-bold px-3.5 py-1.5 rounded-xl text-xs transition">
+            🗑️ 清空全部錯題
+          </button>
+        </div>
+      </div>
+
+      <div id="wrongListContainer" class="space-y-4"></div>
+    </section>
+
+  </main>
+
+  <!-- ==================== 視窗 1：🖼️ 原圖管理 ==================== -->
+  <div id="imageManagerModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center z-50 p-4">
+    <div class="bg-white rounded-2xl shadow-xl max-w-4xl w-full max-h-[90vh] flex flex-col overflow-hidden">
+      <div class="px-6 py-4 border-b border-slate-200 flex items-center justify-between bg-slate-50">
+        <div>
+          <h3 class="text-lg font-bold text-slate-800">🖼️ 考卷原圖管理中心</h3>
+          <p class="text-xs text-slate-500 mt-0.5">自動同步顯示 GitHub <code class="bg-slate-200 px-1 rounded">images/</code> 資料夾原圖，或直接點擊虛線框按 <kbd class="bg-slate-200 px-1.5 py-0.5 rounded font-mono">Ctrl+V</kbd> 貼上截圖。</p>
+        </div>
+        <button onclick="closeImageManager()" class="text-slate-400 hover:text-slate-700 text-2xl font-bold leading-none">&times;</button>
+      </div>
+
+      <div class="px-6 py-3 bg-white border-b border-slate-100 flex flex-wrap items-center justify-between gap-2">
+        <div class="flex flex-wrap items-center gap-2">
+          <select id="imgFilterSchool" onchange="renderImageManagerList()" class="border border-slate-300 rounded-lg px-3 py-1.5 text-sm font-medium">
+            <option value="ALL">全部學校</option>
+          </select>
+          <label class="flex items-center gap-1.5 text-sm text-slate-700 cursor-pointer select-none">
+            <input type="checkbox" id="imgFilterOnlyNeeded" checked onchange="renderImageManagerList()" class="rounded text-amber-600">
+            <span>只顯示需要附圖的題目</span>
+          </label>
+        </div>
+        <div class="text-xs text-slate-500" id="imgStorageInfo">本機快取：0 KB</div>
+      </div>
+
+      <div id="imageManagerList" class="p-6 overflow-y-auto space-y-4 flex-1 bg-slate-50/50"></div>
+
+      <div class="px-6 py-3 border-t border-slate-200 bg-slate-50 flex justify-between items-center">
+        <span class="text-xs text-slate-500">提示：把小寫 <code class="bg-slate-200 px-1 rounded">.png</code> 放入 GitHub <code class="bg-slate-200 px-1 rounded">images/</code> 資料夾，所有裝置皆可自動顯示。</span>
+        <button onclick="closeImageManager()" class="bg-slate-800 text-white font-bold px-5 py-2 rounded-xl text-sm">完成並關閉</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 視窗 2：☁️ 雲端成績設定 ==================== -->
+  <div id="cloudModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center z-50 p-4">
+    <div class="bg-white rounded-2xl shadow-xl max-w-2xl w-full max-h-[90vh] flex flex-col overflow-hidden">
+      <div class="px-6 py-4 border-b border-slate-200 flex items-center justify-between bg-slate-50">
+        <h3 class="text-lg font-bold text-slate-800">☁️ Google 試算表雲端成績自動上傳設定</h3>
+        <button onclick="closeCloudModal()" class="text-slate-400 hover:text-slate-700 text-2xl font-bold leading-none">&times;</button>
+      </div>
+      <div class="p-6 overflow-y-auto space-y-4 text-sm">
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Google Apps Script 網頁應用程式網址（Web App URL）</label>
+          <input type="url" id="gasUrlInput" placeholder="https://script.google.com/macros/s/....../exec" class="w-full border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:border-amber-500">
+        </div>
+
+        <div class="flex flex-wrap gap-2">
+          <button onclick="saveGasUrl()" class="bg-amber-700 hover:bg-amber-800 text-white font-bold px-4 py-2 rounded-xl text-sm">💾 儲存設定</button>
+          <button onclick="testGasConnection()" class="bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 font-bold px-4 py-2 rounded-xl text-sm">📡 測試傳送一筆測試紀錄</button>
+          <button onclick="clearGasUrl()" class="bg-slate-100 hover:bg-slate-200 text-slate-600 px-3 py-2 rounded-xl text-sm">清除網址</button>
+        </div>
+
+        <div id="gasTestResult" class="hidden p-3 rounded-xl text-xs font-medium"></div>
+
+        <div class="border-t border-slate-200 pt-4">
+          <div class="flex items-center justify-between mb-2">
+            <span class="font-bold text-slate-700">📋 Google Apps Script 接收端程式碼</span>
+            <button onclick="copyGasCode()" class="text-xs bg-slate-800 text-white px-2.5 py-1 rounded-lg hover:bg-slate-700">複製程式碼</button>
+          </div>
+          <pre id="gasSampleCode" class="bg-slate-900 text-emerald-300 p-3 rounded-xl text-xs overflow-x-auto font-mono leading-relaxed">function doPost(e) {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  if (sheet.getLastRow() === 0) {
+    sheet.appendRow(["測驗時間", "測驗模式/學校", "答對題數", "總題數", "原始得分", "百分制總分", "作答耗時", "錯題明細"]);
+  }
+  var data = JSON.parse(e.postData.contents);
+  sheet.appendRow([
+    new Date().toLocaleString("zh-TW", {timeZone: "Asia/Taipei"}),
+    data.quizName || "",
+    data.correctCount || 0,
+    data.totalCount || 0,
+    data.rawScore || "",
+    data.score100 || 0,
+    data.timeSpent || "",
+    data.wrongList || "全對"
+  ]);
+  return ContentService.createTextOutput(JSON.stringify({status: "success"})).setMimeType(ContentService.MimeType.JSON);
+}</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 視窗 3：📥 題庫擴充與 GitHub 跨電腦同步 ==================== -->
+  <div id="importModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center z-50 p-4">
+    <div class="bg-white rounded-2xl shadow-xl max-w-2xl w-full max-h-[90vh] flex flex-col overflow-hidden">
+      <div class="px-6 py-4 border-b border-slate-200 flex items-center justify-between bg-slate-50">
+        <h3 class="text-lg font-bold text-slate-800">📥 題庫擴充與 GitHub 跨裝置同步</h3>
+        <button onclick="closeImportModal()" class="text-slate-400 hover:text-slate-700 text-2xl font-bold leading-none">&times;</button>
+      </div>
+      <div class="p-6 overflow-y-auto space-y-4 text-sm">
+        <div class="bg-blue-50 border border-blue-200 rounded-xl p-3.5 text-xs text-blue-900 space-y-1">
+          <div class="font-bold">🌐 如何讓所有電腦與手機自動同步看到歷史題庫？</div>
+          <div>1. 匯入歷史科考卷資料包後，點擊下方藍色按鈕下載 <strong><code>questions.js</code></strong>。</div>
+          <div>2. 將下載的 <strong><code>questions.js</code></strong> 上傳至 GitHub 專案的 <code>his/</code> 資料夾（與本 <code>index.html</code> 同層），所有裝置重新整理即自動同步！</div>
+        </div>
+
+        <div class="flex flex-wrap gap-2">
+          <button onclick="exportQuestionsJsFile()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-4 py-2.5 rounded-xl text-xs shadow-sm">
+            🚀 匯出 GitHub 同步檔（questions.js）
+          </button>
+          <button onclick="exportFullBank()" class="bg-slate-800 hover:bg-slate-900 text-white font-bold px-4 py-2.5 rounded-xl text-xs">
+            📤 匯出純 JSON 備份
+          </button>
+          <button onclick="resetToCloudOrDefault()" class="bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 font-bold px-4 py-2.5 rounded-xl text-xs">
+            🔄 清除本機快取並重新載入雲端題庫
+          </button>
+        </div>
+
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">貼上新學校考卷 JSON 資料包（會自動合併至現有題庫）</label>
+          <textarea id="jsonImportTextarea" rows="7" placeholder='請在此貼上 JSON 格式題庫資料...' class="w-full border border-slate-300 rounded-xl p-3 font-mono text-xs focus:outline-none focus:border-amber-500"></textarea>
+        </div>
+        <button onclick="importBankJson()" class="w-full bg-amber-700 hover:bg-amber-800 text-white font-bold py-2.5 rounded-xl">✅ 確認合併匯入</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const SVG_FALLBACKS = {
+      taoyuan_his_q11: `<svg viewBox="0 0 260 180" class="w-full max-w-xs mx-auto"><rect width="260" height="180" fill="#e0f2fe" rx="8"/><path d="M135,20 L170,40 L160,115 L140,160 L120,120 L115,65 Z" fill="#fef3c7" stroke="#b45309" stroke-width="1.5"/><circle cx="145" cy="30" r="12" fill="none" stroke="#dc2626" stroke-width="2"/><text x="145" y="34" text-anchor="middle" font-size="11" font-weight="bold" fill="#dc2626">甲</text><circle cx="70" cy="105" r="12" fill="none" stroke="#2563eb" stroke-width="2"/><text x="70" y="109" text-anchor="middle" font-size="11" font-weight="bold" fill="#2563eb">乙</text><circle cx="122" cy="120" r="12" fill="none" stroke="#059669" stroke-width="2"/><text x="122" y="124" text-anchor="middle" font-size="11" font-weight="bold" fill="#059669">丙</text><circle cx="138" cy="162" r="12" fill="none" stroke="#7c3aed" stroke-width="2"/><text x="138" y="166" text-anchor="middle" font-size="11" font-weight="bold" fill="#7c3aed">丁</text></svg>`,
+      zhongxiao_his_q34: `<svg viewBox="0 0 260 180" class="w-full max-w-xs mx-auto"><rect width="260" height="180" fill="#e0f2fe" rx="8"/><path d="M135,20 L170,40 L160,115 L140,160 L120,120 L115,65 Z" fill="#dcfce7" stroke="#15803d" stroke-width="1.5"/><text x="155" y="42" font-size="11" font-weight="bold" fill="#b45309">甲(宜蘭)</text><text x="115" y="75" font-size="11" font-weight="bold" fill="#2563eb">乙(中部)</text><text x="65" y="105" font-size="11" font-weight="bold" fill="#dc2626">丙(澎湖)</text><text x="105" y="128" font-size="11" font-weight="bold" fill="#059669">丁(臺南)</text></svg>`,
+      banqiao_his_q23: `<svg viewBox="0 0 260 180" class="w-full max-w-xs mx-auto"><rect width="260" height="180" fill="#e0f2fe" rx="8"/><path d="M135,20 L170,40 L160,115 L140,160 L120,120 L115,65 Z" fill="#fef9c3" stroke="#ca8a04" stroke-width="1.5"/><text x="152" y="40" font-size="11" font-weight="bold" fill="#dc2626">甲(宜蘭/噶瑪蘭)</text><text x="108" y="80" font-size="11" font-weight="bold" fill="#2563eb">乙(彰化)</text><text x="102" y="122" font-size="11" font-weight="bold" fill="#059669">丙(臺南)</text><text x="112" y="145" font-size="11" font-weight="bold" fill="#7c3aed">丁(高雄)</text></svg>`,
+      fuhe_his_q29: `<svg viewBox="0 0 260 180" class="w-full max-w-xs mx-auto"><rect width="260" height="180" fill="#e0f2fe" rx="8"/><path d="M135,20 L170,40 L160,115 L140,160 L120,120 L115,65 Z" fill="#fef3c7" stroke="#b45309" stroke-width="1.5"/><text x="168" y="30" font-size="10" font-weight="bold" fill="#dc2626">▲ 雞籠(基隆)</text><text x="95" y="32" font-size="10" font-weight="bold" fill="#dc2626">▲ 滬尾(淡水)</text><text x="80" y="118" font-size="10" font-weight="bold" fill="#dc2626">▲ 安平</text><text x="85" y="138" font-size="10" font-weight="bold" fill="#dc2626">▲ 打狗(高雄)</text></svg>`
+    };
+
+    const DEFAULT_BANK = [
+      { id: "taoyuan_his_1", school: "桃園市立桃園國中", exam: "114上第二次段考", num: 1, points: 3, imgKey: "taoyuan_his_q1", q: "下圖是小芳在臺灣某離島觀光手冊看到的內容（甲：法軍將領紀念碑；乙：1778年清代燈塔；丙：1622年荷蘭人興建之西式城堡遺跡），下列對於地圖內容的敘述何者最為正確？", options: ["(A) 「甲」戰役的法軍亦曾進攻鄰近的臺南、高雄地區", "(B) 「丙」的城堡遺跡與明朝將領郭懷一擊退荷人有關", "(C) 小芳所看到的某離島觀光手冊應為「金門」", "(D) 法國因與清帝國爭奪越南控制權而在「甲」爆發戰役"], ans: 3, exp: "該離島為「澎湖」，1622年荷蘭人曾在此築城，1885年清法戰爭因越南主權問題法軍進攻澎湖（孤拔病逝於澎湖），故選(D)。" }
+    ];
+
+    // ==================== 狀態管理（歷史科獨立儲存鍵值） ====================
+    let questionBank = [];
+    let customImages = {};
+    let wrongIds = [];
+    let wrongRecords = {};
+    let gasWebAppUrl = "https://script.google.com/macros/s/AKfycbylrN8yo5MPXVKmSXUWs2WKGMfsDyXk32ynhq0LXaiuEWb4y9gKFZdSj_5dPldHse53/exec";
+    let currentPracticeMode = "exam";
+    let currentQuizQuestions = [];
+    let currentQuizConfig = null;
+    let userAnswers = {};
+    let flaggedQuestions = {};
+    let timerInterval = null;
+    let secondsElapsed = 0;
+    let showWrongOnlyInReview = false;
+
+    const STORAGE_KEYS = {
+      BANK: "his_bank_v1",
+      IMAGES: "his_custom_images_v1",
+      WRONG: "his_wrong_ids_v1",
+      WRONG_RECORDS: "his_wrong_records_v1",
+      GAS_URL: "his_gas_url_v1"
+    };
+
+    window.addEventListener("DOMContentLoaded", () => {
+      loadFromStorage();
+      renderHome();
+      updateCloudStatusUI();
+    });
+
+    function loadFromStorage() {
+      const cloudQuestions = (window.EXTERNAL_QUESTION_BANK && Array.isArray(window.EXTERNAL_QUESTION_BANK.questions))
+        ? window.EXTERNAL_QUESTION_BANK.questions
+        : (Array.isArray(window.EXTERNAL_QUESTION_BANK) ? window.EXTERNAL_QUESTION_BANK : null);
+
+      const cloudImages = (window.EXTERNAL_QUESTION_BANK && window.EXTERNAL_QUESTION_BANK.customImages)
+        ? window.EXTERNAL_QUESTION_BANK.customImages
+        : {};
+
+      const baseQuestions = cloudQuestions || [...DEFAULT_BANK];
+
+      try {
+        const savedBank = JSON.parse(localStorage.getItem(STORAGE_KEYS.BANK) || "null");
+        if (savedBank && Array.isArray(savedBank)) {
+          const map = new Map();
+          baseQuestions.forEach(q => map.set(q.id, q));
+          savedBank.forEach(q => { if (!map.has(q.id)) map.set(q.id, q); });
+          questionBank = Array.from(map.values());
+        } else {
+          questionBank = baseQuestions;
+        }
+      } catch (e) {
+        questionBank = baseQuestions;
+      }
+
+      try {
+        const savedImgs = JSON.parse(localStorage.getItem(STORAGE_KEYS.IMAGES) || "{}");
+        customImages = { ...cloudImages, ...savedImgs };
+      } catch (e) {
+        customImages = { ...cloudImages };
+      }
+
+      try {
+        wrongIds = JSON.parse(localStorage.getItem(STORAGE_KEYS.WRONG) || "[]");
+      } catch (e) {
+        wrongIds = [];
+      }
+      try {
+        wrongRecords = JSON.parse(localStorage.getItem(STORAGE_KEYS.WRONG_RECORDS) || "{}");
+        wrongIds.forEach(id => {
+          if (!wrongRecords[id]) {
+            wrongRecords[id] = { count: 1, lastWrongAns: null, updatedAt: Date.now() };
+          }
+        });
+      } catch (e) {
+        wrongRecords = {};
+      }
+
+      gasWebAppUrl = localStorage.getItem(STORAGE_KEYS.GAS_URL) || "https://script.google.com/macros/s/AKfycbylrN8yo5MPXVKmSXUWs2WKGMfsDyXk32ynhq0LXaiuEWb4y9gKFZdSj_5dPldHse53/exec";
+
+      const syncBadge = document.getElementById("syncSourceBadge");
+      if (cloudQuestions) {
+        syncBadge.textContent = "☁️ 已連線雲端題庫 (questions.js)";
+        syncBadge.className = "text-xs bg-blue-50 text-blue-700 border border-blue-200 px-2.5 py-0.5 rounded-full font-bold";
+      } else {
+        syncBadge.textContent = "📦 等待匯入 questions.js";
+        syncBadge.className = "text-xs bg-amber-50 text-amber-700 border border-amber-200 px-2.5 py-0.5 rounded-full font-medium";
+      }
+    }
+
+    function saveBankToStorage() {
+      localStorage.setItem(STORAGE_KEYS.BANK, JSON.stringify(questionBank));
+    }
+
+    function saveImagesToStorage() {
+      try {
+        localStorage.setItem(STORAGE_KEYS.IMAGES, JSON.stringify(customImages));
+      } catch (e) {
+        alert("⚠️ 瀏覽器本機儲存空間已滿！建議將圖片存成小寫 .png 放入 GitHub 的 images/ 資料夾中。");
+      }
+    }
+
+    // ==================== 首頁渲染 ====================
+    function renderHome() {
+      document.getElementById("totalBankBadge").textContent = `目前共收錄 ${questionBank.length} 題`;
+      updateWrongBadges();
+
+      const schoolMap = {};
+      questionBank.forEach(item => {
+        const key = `${item.school}｜${item.exam}`;
+        if (!schoolMap[key]) {
+          schoolMap[key] = { key, school: item.school, exam: item.exam, items: [] };
+        }
+        schoolMap[key].items.push(item);
+      });
+
+      const schoolGroups = Object.values(schoolMap);
+      const cardsContainer = document.getElementById("schoolCardsContainer");
+      const crossContainer = document.getElementById("crossSchoolCheckboxes");
+
+      cardsContainer.innerHTML = "";
+      crossContainer.innerHTML = "";
+
+      schoolGroups.forEach(group => {
+        const totalPts = Math.round(group.items.reduce((sum, q) => sum + (q.points || 2), 0));
+        const card = document.createElement("div");
+        card.className = "bg-white rounded-2xl shadow-sm border border-slate-200 p-5 flex flex-col justify-between hover:border-amber-400 transition";
+        card.innerHTML = `
+          <div>
+            <div class="flex items-center justify-between gap-2">
+              <span class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-800 border border-amber-200">${group.exam}</span>
+              <span class="text-xs text-slate-400 font-medium">歷史科共 ${group.items.length} 題・滿分 ${totalPts} 分</span>
+            </div>
+            <h4 class="text-lg font-bold text-slate-800 mt-2">${group.school}</h4>
+            <p class="text-xs text-slate-500 mt-1">完整載入該校全部 ${group.items.length} 題歷史試題，依原卷題號順序進行測驗與配分。</p>
+          </div>
+          <button onclick="startSingleSchoolQuiz('${group.key}')" class="mt-4 w-full bg-amber-700 hover:bg-amber-800 text-white font-bold py-2.5 rounded-xl text-sm shadow-sm transition flex items-center justify-center gap-1.5">
+            <span>📄 開始整張考卷（${group.items.length} 題）</span>
+          </button>
+        `;
+        cardsContainer.appendChild(card);
+
+        const label = document.createElement("label");
+        label.className = "flex items-center gap-2.5 p-3 rounded-xl border border-slate-200 bg-slate-50/70 hover:bg-amber-50/50 cursor-pointer transition";
+        label.innerHTML = `
+          <input type="checkbox" value="${group.key}" checked class="cross-school-cb w-4 h-4 text-amber-600 rounded">
+          <div class="text-xs">
+            <div class="font-bold text-slate-800">${group.school}</div>
+            <div class="text-slate-500">${group.items.length} 題</div>
+          </div>
+        `;
+        crossContainer.appendChild(label);
+      });
+    }
+
+    function setPracticeMode(mode) {
+      currentPracticeMode = mode;
+      const examBtn = document.getElementById("modeExamBtn");
+      const instantBtn = document.getElementById("modeInstantBtn");
+      if (mode === "exam") {
+        examBtn.className = "px-3 py-1.5 rounded-lg text-sm font-bold bg-amber-700 text-white shadow-sm transition";
+        instantBtn.className = "px-3 py-1.5 rounded-lg text-sm font-bold text-slate-600 hover:text-slate-900 transition";
+      } else {
+        instantBtn.className = "px-3 py-1.5 rounded-lg text-sm font-bold bg-orange-500 text-white shadow-sm transition";
+        examBtn.className = "px-3 py-1.5 rounded-lg text-sm font-bold text-slate-600 hover:text-slate-900 transition";
+      }
+    }
+
+    function toggleAllCrossSchools(checked) {
+      document.querySelectorAll(".cross-school-cb").forEach(cb => cb.checked = checked);
+    }
+
+    // ==================== 啟動測驗 ====================
+    function startSingleSchoolQuiz(groupKey) {
+      const items = questionBank
+        .filter(q => `${q.school}｜${q.exam}` === groupKey)
+        .sort((a, b) => a.num - b.num);
+      if (!items.length) return;
+      launchQuiz({ title: `【歷史】${groupKey}（完整試卷）`, type: "single", questions: items });
+    }
+
+    function startCrossSchoolQuiz() {
+      const selectedKeys = Array.from(document.querySelectorAll(".cross-school-cb:checked")).map(cb => cb.value);
+      if (selectedKeys.length === 0) {
+        alert("請至少勾選一間學校！");
+        return;
+      }
+      const pool = questionBank.filter(q => selectedKeys.includes(`${q.school}｜${q.exam}`));
+      const shuffled = [...pool].sort(() => Math.random() - 0.5);
+      const picked = shuffled.slice(0, 25).map((q, idx) => ({ ...q, displayNum: idx + 1, points: 4 }));
+      launchQuiz({ title: `【歷史】跨校綜合隨機測驗（共 ${picked.length} 題）`, type: "cross", questions: picked });
+    }
+
+    function saveWrongStorage() {
+      localStorage.setItem(STORAGE_KEYS.WRONG, JSON.stringify(wrongIds));
+      localStorage.setItem(STORAGE_KEYS.WRONG_RECORDS, JSON.stringify(wrongRecords));
+      updateWrongBadges();
+    }
+
+    function updateWrongBadges() {
+      const validCount = questionBank.filter(q => wrongIds.includes(q.id)).length;
+      const b1 = document.getElementById("wrongCountBadge");
+      const b2 = document.getElementById("headerWrongBadge");
+      if (b1) b1.textContent = validCount;
+      if (b2) b2.textContent = validCount;
+    }
+
+    function recordWrongQuestion(id, lastWrongAns = null, persist = true) {
+      if (!wrongIds.includes(id)) wrongIds.push(id);
+      const prev = wrongRecords[id] || { count: 0 };
+      wrongRecords[id] = {
+        count: prev.count + 1,
+        lastWrongAns: lastWrongAns !== undefined ? lastWrongAns : prev.lastWrongAns,
+        updatedAt: Date.now()
+      };
+      if (persist) saveWrongStorage();
+    }
+
+    function removeWrongQuestion(id, persist = true) {
+      wrongIds = wrongIds.filter(x => x !== id);
+      delete wrongRecords[id];
+      if (persist) saveWrongStorage();
+    }
+
+    function openWrongCenter() {
+      clearInterval(timerInterval);
+      document.getElementById("homeView").classList.add("hidden");
+      document.getElementById("quizView").classList.add("hidden");
+      document.getElementById("resultView").classList.add("hidden");
+      document.getElementById("wrongCenterView").classList.remove("hidden");
+
+      const select = document.getElementById("wrongFilterSchool");
+      const currentVal = select.value;
+      const wrongItems = questionBank.filter(q => wrongIds.includes(q.id));
+      const schools = [...new Set(wrongItems.map(q => q.school))];
+      select.innerHTML = `<option value="ALL">全部學校（${wrongItems.length} 題）</option>` +
+        schools.map(s => {
+          const cnt = wrongItems.filter(q => q.school === s).length;
+          return `<option value="${s}">${s}（${cnt} 題）</option>`;
+        }).join("");
+      if ([...select.options].some(o => o.value === currentVal)) {
+        select.value = currentVal;
+      }
+
+      renderWrongCenter();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function getFilteredWrongItems() {
+      const schoolFilter = document.getElementById("wrongFilterSchool").value;
+      const sortOrder = document.getElementById("wrongSortOrder").value;
+      let items = questionBank.filter(q => wrongIds.includes(q.id));
+
+      if (schoolFilter !== "ALL") {
+        items = items.filter(q => q.school === schoolFilter);
+      }
+
+      items.sort((a, b) => {
+        const recA = wrongRecords[a.id] || { count: 1, updatedAt: 0 };
+        const recB = wrongRecords[b.id] || { count: 1, updatedAt: 0 };
+        if (sortOrder === "count") return recB.count - recA.count || a.num - b.num;
+        if (sortOrder === "num") return a.school.localeCompare(b.school) || a.num - b.num;
+        return recB.updatedAt - recA.updatedAt;
+      });
+      return items;
+    }
+
+    function renderWrongCenter() {
+      const allWrongCount = questionBank.filter(q => wrongIds.includes(q.id)).length;
+      document.getElementById("wrongCenterTotalBadge").textContent = `${allWrongCount} 題待複習`;
+      updateWrongBadges();
+
+      const container = document.getElementById("wrongListContainer");
+      const items = getFilteredWrongItems();
+
+      if (allWrongCount === 0) {
+        container.innerHTML = `
+          <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-12 text-center space-y-3">
+            <div class="text-5xl">🎉</div>
+            <h3 class="text-lg font-bold text-slate-800">目前沒有任何歷史錯題紀錄！</h3>
+            <p class="text-sm text-slate-500">只要在模擬考或即時練習中答錯題目，系統就會自動將它收錄到這裡方便隨時複習。</p>
+            <button onclick="goHome()" class="mt-2 bg-amber-700 hover:bg-amber-800 text-white font-bold px-5 py-2.5 rounded-xl text-sm">
+              前往進行測驗
+            </button>
+          </div>
+        `;
+        return;
+      }
+
+      if (items.length === 0) {
+        container.innerHTML = `<div class="bg-white rounded-2xl p-8 text-center text-slate-400 border border-slate-200">此篩選條件下沒有錯題。</div>`;
+        return;
+      }
+
+      container.innerHTML = "";
+      items.forEach((item, idx) => {
+        const rec = wrongRecords[item.id] || { count: 1, lastWrongAns: null };
+        const ansLetter = ["A", "B", "C", "D"][item.ans];
+        const lastWrongLetter = (rec.lastWrongAns !== null && rec.lastWrongAns !== undefined)
+          ? `(${["A", "B", "C", "D"][rec.lastWrongAns]})`
+          : "未作答/紀錄";
+
+        let imgHtml = "";
+        if (item.imgKey) {
+          const localUrl = customImages[item.imgKey];
+          const ghPath = `images/${item.imgKey}.png`;
+          const fbSvg = item.fallbackSvg ? (SVG_FALLBACKS[item.fallbackSvg] || "") : "";
+          imgHtml = localUrl
+            ? `<div class="my-3 p-2.5 bg-slate-50 rounded-xl border border-slate-200 text-center"><img src="${localUrl}" class="max-h-56 mx-auto rounded-lg object-contain"/></div>`
+            : `<div class="my-3 p-2.5 bg-slate-50 rounded-xl border border-slate-200 text-center">
+                 <img src="${ghPath}" class="max-h-56 mx-auto rounded-lg object-contain" onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden');"/>
+                 <div class="hidden">${fbSvg}</div>
+               </div>`;
+        }
+
+        const card = document.createElement("div");
+        card.className = "bg-white rounded-2xl shadow-sm border-l-4 border-rose-500 p-5 space-y-3";
+        card.innerHTML = `
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <div class="flex items-center gap-2 flex-wrap">
+              <span class="bg-rose-600 text-white text-xs font-bold px-2.5 py-1 rounded-lg">錯題 #${idx + 1}</span>
+              <span class="text-xs font-bold text-slate-700 bg-slate-100 px-2.5 py-1 rounded-lg">${item.school}・原第 ${item.num} 題</span>
+              <span class="text-xs font-bold text-rose-700 bg-rose-50 border border-rose-200 px-2.5 py-1 rounded-lg">累計錯誤 ${rec.count} 次</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <button onclick="toggleWrongAnswerReveal('${item.id}')" id="reveal-btn-${item.id}" class="text-xs bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 font-bold px-3 py-1.5 rounded-lg transition">
+                👁️ 顯示答案與解析
+              </button>
+              <button onclick="markWrongAsMastered('${item.id}')" class="text-xs bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 font-bold px-3 py-1.5 rounded-lg transition">
+                ✅ 已學會・移出錯題本
+              </button>
+            </div>
+          </div>
+
+          ${item.group ? `<div class="text-xs bg-amber-50/80 border-l-2 border-amber-400 p-2.5 rounded-r-lg text-slate-700 whitespace-pre-line">${item.group}</div>` : ""}
+
+          <p class="text-base font-bold text-slate-800 leading-relaxed whitespace-pre-line">${item.q}</p>
+          ${imgHtml}
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-2" id="wrong-opts-${item.id}">
+            ${item.options.map((opt, oIdx) => `
+              <div data-opt-idx="${oIdx}" class="wrong-opt-item text-sm px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50/60 text-slate-700">
+                ${opt}
+              </div>
+            `).join("")}
+          </div>
+
+          <div id="wrong-detail-${item.id}" class="hidden pt-2 space-y-2">
+            <div class="flex flex-wrap items-center gap-3 text-xs font-bold">
+              <span class="text-emerald-700 bg-emerald-50 border border-emerald-200 px-2.5 py-1 rounded-lg">標準答案：(${ansLetter})</span>
+              <span class="text-rose-700 bg-rose-50 border border-rose-200 px-2.5 py-1 rounded-lg">上次錯選：${lastWrongLetter}</span>
+            </div>
+            <div class="bg-blue-50/80 border border-blue-100 rounded-xl p-3.5 text-sm text-slate-700 leading-relaxed">
+              <strong class="text-blue-800">💡 歷史解析：</strong>${item.exp}
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function toggleWrongAnswerReveal(id) {
+      const item = questionBank.find(q => q.id === id);
+      if (!item) return;
+      const rec = wrongRecords[id] || {};
+      const detailBox = document.getElementById(`wrong-detail-${id}`);
+      const btn = document.getElementById(`reveal-btn-${id}`);
+      const optEls = document.querySelectorAll(`#wrong-opts-${id} .wrong-opt-item`);
+      const isHidden = detailBox.classList.contains("hidden");
+
+      if (isHidden) {
+        detailBox.classList.remove("hidden");
+        btn.textContent = "🙈 隱藏答案與解析";
+        optEls.forEach(el => {
+          const idx = Number(el.dataset.optIdx);
+          if (idx === item.ans) {
+            el.className = "wrong-opt-item text-sm px-3.5 py-2.5 rounded-xl border border-emerald-400 bg-emerald-50 text-emerald-900 font-bold";
+          } else if (idx === rec.lastWrongAns) {
+            el.className = "wrong-opt-item text-sm px-3.5 py-2.5 rounded-xl border border-rose-300 bg-rose-50 text-rose-800 line-through";
+          }
+        });
+      } else {
+        detailBox.classList.add("hidden");
+        btn.textContent = "👁️ 顯示答案與解析";
+        optEls.forEach(el => {
+          el.className = "wrong-opt-item text-sm px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50/60 text-slate-700";
+        });
+      }
+    }
+
+    function markWrongAsMastered(id) {
+      removeWrongQuestion(id, true);
+      openWrongCenter();
+    }
+
+    function clearAllWrongQuestions() {
+      if (wrongIds.length === 0) return;
+      if (confirm("確定要清空全部歷史錯題紀錄嗎？清空後將無法復原。")) {
+        wrongIds = [];
+        wrongRecords = {};
+        saveWrongStorage();
+        openWrongCenter();
+      }
+    }
+
+    function startWrongQuiz(scope = "ALL") {
+      const pool = scope === "FILTERED"
+        ? getFilteredWrongItems()
+        : questionBank.filter(q => wrongIds.includes(q.id));
+
+      if (pool.length === 0) {
+        alert("太棒了！目前沒有需要重練的錯題。");
+        return;
+      }
+      const items = pool.map((q, idx) => ({ ...q, displayNum: idx + 1 }));
+      const titleSuffix = scope === "FILTERED" ? "（篩選範圍）" : "（全部錯題）";
+      launchQuiz({ title: `【歷史】錯題本專屬測驗${titleSuffix}（共 ${items.length} 題）`, type: "wrong", questions: items });
+    }
+
+    function launchQuiz(config) {
+      currentQuizConfig = config;
+      currentQuizQuestions = config.questions;
+      userAnswers = {};
+      flaggedQuestions = {};
+      secondsElapsed = 0;
+
+      document.getElementById("homeView").classList.add("hidden");
+      document.getElementById("resultView").classList.add("hidden");
+      document.getElementById("wrongCenterView").classList.add("hidden");
+      document.getElementById("quizView").classList.remove("hidden");
+
+      document.getElementById("quizTitle").textContent = config.title;
+      document.getElementById("quizModeTag").textContent =
+        currentPracticeMode === "exam" ? "📝 正式模擬考（交卷算分）" : "⚡ 即時練習（邊寫邊看詳解）";
+
+      renderQuestions();
+      renderAnswerSheet();
+      updateProgress();
+
+      clearInterval(timerInterval);
+      timerInterval = setInterval(() => {
+        secondsElapsed++;
+        document.getElementById("timerDisplay").textContent = formatTime(secondsElapsed);
+      }, 1000);
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function formatTime(sec) {
+      const m = String(Math.floor(sec / 60)).padStart(2, "0");
+      const s = String(sec % 60).padStart(2, "0");
+      return `${m}:${s}`;
+    }
+
+    // ==================== 渲染題目與圖片 ====================
+    function renderQuestions() {
+      const container = document.getElementById("questionsContainer");
+      container.innerHTML = "";
+      let lastGroupText = "";
+
+      currentQuizQuestions.forEach((item, index) => {
+        const displayNum = item.displayNum || item.num;
+
+        if (item.group && (currentQuizConfig.type !== "single" || item.group !== lastGroupText)) {
+          const groupBox = document.createElement("div");
+          groupBox.className = "bg-amber-50/90 border-l-4 border-amber-500 rounded-r-2xl p-4 text-sm text-slate-800 leading-relaxed shadow-sm whitespace-pre-line";
+          groupBox.innerHTML = `<div class="font-bold text-amber-800 mb-1">📖 閱讀史料與題組文本</div><div>${item.group}</div>`;
+          container.appendChild(groupBox);
+        }
+        lastGroupText = item.group || "";
+
+        const card = document.createElement("div");
+        card.id = `q-card-${index}`;
+        card.className = "bg-white rounded-2xl shadow-sm border border-slate-200 p-5 transition";
+
+        let imageBlockHtml = item.imgKey ? buildSmartImageHtml(item, index) : "";
+
+        const optionsHtml = item.options.map((opt, optIdx) => `
+          <button type="button" id="opt-${index}-${optIdx}" onclick="selectOption(${index}, ${optIdx})"
+            class="w-full text-left p-3.5 rounded-xl border border-slate-200 hover:border-amber-400 hover:bg-amber-50/40 transition flex items-start gap-3 text-sm md:text-base">
+            <span class="w-6 h-6 rounded-full border border-slate-300 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5 opt-badge">${["A","B","C","D"][optIdx]}</span>
+            <span class="flex-1">${opt.replace(/^\([A-D]\)\s*/, "")}</span>
+          </button>
+        `).join("");
+
+        card.innerHTML = `
+          <div class="flex items-start justify-between gap-3 mb-3">
+            <div class="flex items-center gap-2 flex-wrap">
+              <span class="bg-slate-800 text-white text-xs font-bold px-2.5 py-1 rounded-lg">第 ${displayNum} 題</span>
+              <span class="text-xs text-slate-400">${item.school}・原第${item.num}題（${item.points}分）</span>
+            </div>
+            <button onclick="toggleFlag(${index})" id="flag-btn-${index}" class="text-xs px-2.5 py-1 rounded-lg border border-slate-200 text-slate-500 hover:bg-amber-50 hover:text-amber-700 transition">
+              🚩 標記
+            </button>
+          </div>
+          <p class="text-base md:text-lg font-medium text-slate-800 leading-relaxed mb-4 whitespace-pre-line">${item.q}</p>
+          ${imageBlockHtml}
+          <div class="space-y-2.5" id="opts-wrap-${index}">${optionsHtml}</div>
+          <div id="instant-exp-${index}" class="hidden mt-4 p-4 rounded-xl bg-slate-50 border border-slate-200 text-sm"></div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function buildSmartImageHtml(item, qIndex) {
+      const localDataUrl = customImages[item.imgKey];
+      const githubPath = `images/${item.imgKey}.png`;
+      const fallbackSvg = item.fallbackSvg ? (SVG_FALLBACKS[item.fallbackSvg] || "") : "";
+
+      if (localDataUrl) {
+        return `
+          <div class="my-4 p-3 bg-slate-50 rounded-xl border border-slate-200 text-center">
+            <div class="flex items-center justify-between text-xs text-slate-400 mb-2">
+              <span>🖼️ 考卷原圖</span>
+              <button onclick="openImageManager('${item.imgKey}')" class="text-blue-600 hover:underline">更換圖片</button>
+            </div>
+            <img src="${localDataUrl}" alt="${item.imgKey}" class="max-h-72 mx-auto rounded-lg shadow-sm object-contain" />
+          </div>
+        `;
+      }
+
+      return `
+        <div class="my-4 p-3 bg-slate-50 rounded-xl border border-slate-200 text-center">
+          <div class="flex items-center justify-between text-xs text-slate-400 mb-2">
+            <span id="img-label-${qIndex}">🖼️ 考卷附圖（${githubPath}）</span>
+            <button onclick="openImageManager('${item.imgKey}')" class="text-amber-800 bg-amber-100 hover:bg-amber-200 px-2 py-0.5 rounded font-medium">貼上此題原圖</button>
+          </div>
+          <img src="${githubPath}" alt="${item.imgKey}"
+            class="max-h-72 mx-auto rounded-lg shadow-sm object-contain"
+            onerror="this.style.display='none'; document.getElementById('svg-fallback-${qIndex}').classList.remove('hidden'); document.getElementById('img-label-${qIndex}').textContent='📐 示意圖（尚未上傳 ${githubPath}）';" />
+          <div id="svg-fallback-${qIndex}" class="hidden">${fallbackSvg}</div>
+        </div>
+      `;
+    }
+
+    function selectOption(qIndex, optIdx) {
+      if (currentPracticeMode === "instant" && userAnswers[qIndex] !== undefined) return;
+      userAnswers[qIndex] = optIdx;
+
+      const item = currentQuizQuestions[qIndex];
+      const wrap = document.getElementById(`opts-wrap-${qIndex}`);
+      const buttons = wrap.querySelectorAll("button");
+
+      buttons.forEach((btn, idx) => {
+        btn.className = "w-full text-left p-3.5 rounded-xl border border-slate-200 transition flex items-start gap-3 text-sm md:text-base";
+        const badge = btn.querySelector(".opt-badge");
+        badge.className = "w-6 h-6 rounded-full border border-slate-300 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5 opt-badge";
+
+        if (currentPracticeMode === "exam") {
+          if (idx === optIdx) {
+            btn.classList.add("border-amber-500", "bg-amber-50", "font-medium");
+            badge.classList.add("bg-amber-700", "text-white", "border-amber-700");
+          }
+        } else {
+          if (idx === item.ans) {
+            btn.classList.add("border-emerald-500", "bg-emerald-50", "text-emerald-900", "font-bold");
+            badge.classList.add("bg-emerald-600", "text-white", "border-emerald-600");
+          } else if (idx === optIdx && optIdx !== item.ans) {
+            btn.classList.add("border-rose-500", "bg-rose-50", "text-rose-900");
+            badge.classList.add("bg-rose-600", "text-white", "border-rose-600");
+          }
+        }
+      });
+
+      if (currentPracticeMode === "instant") {
+        const expBox = document.getElementById(`instant-exp-${qIndex}`);
+        const isCorrect = optIdx === item.ans;
+        if (!isCorrect) {
+          recordWrongQuestion(item.id, optIdx);
+        } else if (currentQuizConfig && currentQuizConfig.type === "wrong") {
+          removeWrongQuestion(item.id);
+        }
+        expBox.classList.remove("hidden");
+        expBox.innerHTML = `
+          <div class="font-bold ${isCorrect ? "text-emerald-700" : "text-rose-700"} mb-1">
+            ${isCorrect ? "✅ 答對了！" : `❌ 答錯了！正確答案是 (${["A","B","C","D"][item.ans]})（已自動加入錯題複習）`}
+          </div>
+          <div class="text-slate-600 leading-relaxed"><strong>歷史解析：</strong>${item.exp}</div>
+        `;
+      }
+
+      renderAnswerSheet();
+      updateProgress();
+    }
+
+    function toggleFlag(qIndex) {
+      flaggedQuestions[qIndex] = !flaggedQuestions[qIndex];
+      const btn = document.getElementById(`flag-btn-${qIndex}`);
+      btn.className = flaggedQuestions[qIndex]
+        ? "text-xs px-2.5 py-1 rounded-lg border border-amber-400 bg-amber-100 text-amber-800 font-bold transition"
+        : "text-xs px-2.5 py-1 rounded-lg border border-slate-200 text-slate-500 hover:bg-amber-50 hover:text-amber-700 transition";
+      renderAnswerSheet();
+    }
+
+    function renderAnswerSheet() {
+      const grid = document.getElementById("answerSheetGrid");
+      grid.innerHTML = "";
+      currentQuizQuestions.forEach((item, idx) => {
+        const displayNum = item.displayNum || item.num;
+        const btn = document.createElement("button");
+        btn.textContent = displayNum;
+        let cls = "h-8 rounded-lg text-xs font-bold transition ";
+        if (flaggedQuestions[idx]) cls += "bg-amber-300 text-slate-900";
+        else if (userAnswers[idx] !== undefined) cls += "bg-amber-600 text-white";
+        else cls += "bg-slate-100 text-slate-600 hover:bg-slate-200";
+        btn.className = cls;
+        btn.onclick = () => document.getElementById(`q-card-${idx}`).scrollIntoView({ behavior: "smooth", block: "center" });
+        grid.appendChild(btn);
+      });
+    }
+
+    function updateProgress() {
+      document.getElementById("quizProgressText").textContent = `${Object.keys(userAnswers).length} / ${currentQuizQuestions.length}`;
+    }
+
+    function confirmExitQuiz() {
+      if (confirm("確定要離開目前測驗並返回首頁嗎？作答紀錄將不會保留。")) {
+        clearInterval(timerInterval);
+        goHome();
+      }
+    }
+
+    // ==================== 交卷計分與雲端同步 ====================
+    function submitQuiz() {
+      const unanswered = currentQuizQuestions.length - Object.keys(userAnswers).length;
+      if (unanswered > 0 && !confirm(`還有 ${unanswered} 題尚未作答，確定要直接交卷嗎？`)) return;
+
+      clearInterval(timerInterval);
+
+      let correctCount = 0;
+      let rawEarned = 0;
+      let rawTotal = 0;
+      const wrongSummary = [];
+
+      currentQuizQuestions.forEach((item, idx) => {
+        const pts = item.points || 2;
+        rawTotal += pts;
+        const isCorrect = userAnswers[idx] === item.ans;
+
+        if (isCorrect) {
+          correctCount++;
+          rawEarned += pts;
+          if (currentQuizConfig.type === "wrong") {
+            removeWrongQuestion(item.id, false);
+          }
+        } else {
+          recordWrongQuestion(item.id, userAnswers[idx], false);
+          wrongSummary.push(`${item.school.replace(/桃園市立|新北市立|臺北市立/g, "")}第${item.num}題`);
+        }
+      });
+
+      saveWrongStorage();
+
+      const score100 = rawTotal > 0 ? Math.round((rawEarned / rawTotal) * 100) : 0;
+      const timeStr = formatTime(secondsElapsed);
+
+      document.getElementById("quizView").classList.add("hidden");
+      document.getElementById("resultView").classList.remove("hidden");
+
+      document.getElementById("resultTitle").textContent = currentQuizConfig.title;
+      document.getElementById("resultScore100").textContent = `${score100} 分`;
+      document.getElementById("resultRawScore").textContent = `${Number(rawEarned.toFixed(1))} / ${Number(rawTotal.toFixed(1))}`;
+      document.getElementById("resultCorrectCount").textContent = `${correctCount} / ${currentQuizQuestions.length}`;
+      document.getElementById("resultTimeSpent").textContent = timeStr;
+
+      showWrongOnlyInReview = false;
+      document.getElementById("reviewWrongOnlyBtn").textContent = "🔍 只看錯題檢討";
+      renderReviewList();
+
+      uploadScoreToCloud({
+        quizName: currentQuizConfig.title,
+        correctCount,
+        totalCount: currentQuizQuestions.length,
+        rawScore: `${Number(rawEarned.toFixed(1))}/${Number(rawTotal.toFixed(1))}`,
+        score100,
+        timeSpent: timeStr,
+        wrongList: wrongSummary.length > 0 ? wrongSummary.join("、") : "全對"
+      });
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function toggleReviewFilter() {
+      showWrongOnlyInReview = !showWrongOnlyInReview;
+      document.getElementById("reviewWrongOnlyBtn").textContent = showWrongOnlyInReview ? "📋 顯示全部題目" : "🔍 只看錯題檢討";
+      renderReviewList();
+    }
+
+    function renderReviewList() {
+      const container = document.getElementById("reviewContainer");
+      container.innerHTML = "";
+
+      currentQuizQuestions.forEach((item, idx) => {
+        const userAns = userAnswers[idx];
+        const isCorrect = userAns === item.ans;
+        if (showWrongOnlyInReview && isCorrect) return;
+
+        const displayNum = item.displayNum || item.num;
+        const card = document.createElement("div");
+        card.className = `bg-white rounded-2xl shadow-sm border-l-4 p-5 ${isCorrect ? "border-emerald-500" : "border-rose-500"}`;
+
+        const userLabel = userAns !== undefined ? `(${["A","B","C","D"][userAns]})` : "未作答";
+        const ansLabel = `(${["A","B","C","D"][item.ans]})`;
+
+        card.innerHTML = `
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+            <div class="flex items-center gap-2">
+              <span class="font-bold text-sm px-2.5 py-0.5 rounded-lg ${isCorrect ? "bg-emerald-100 text-emerald-800" : "bg-rose-100 text-rose-800"}">
+                第 ${displayNum} 題・${isCorrect ? "✅ 答對" : "❌ 答錯"}
+              </span>
+              <span class="text-xs text-slate-400">${item.school} 原第${item.num}題</span>
+            </div>
+            <div class="text-xs font-bold">
+              你的作答：<span class="${isCorrect ? "text-emerald-600" : "text-rose-600"}">${userLabel}</span> ｜
+              標準答案：<span class="text-emerald-700">${ansLabel}</span>
+            </div>
+          </div>
+          <p class="text-base font-medium text-slate-800 mb-3 whitespace-pre-line">${item.q}</p>
+          <div class="space-y-1.5 mb-3">
+            ${item.options.map((opt, oIdx) => {
+              let optCls = "text-sm px-3 py-2 rounded-lg border ";
+              if (oIdx === item.ans) optCls += "bg-emerald-50 border-emerald-300 text-emerald-900 font-bold";
+              else if (oIdx === userAns && !isCorrect) optCls += "bg-rose-50 border-rose-300 text-rose-900 line-through";
+              else optCls += "bg-slate-50 border-slate-100 text-slate-600";
+              return `<div class="${optCls}">${opt}</div>`;
+            }).join("")}
+          </div>
+          <div class="bg-blue-50/70 border border-blue-100 rounded-xl p-3 text-sm text-slate-700">
+            <strong class="text-blue-800">💡 歷史解析：</strong>${item.exp}
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function retryCurrentQuiz() {
+      if (currentQuizConfig) launchQuiz(currentQuizConfig);
+    }
+
+    function goHome() {
+      clearInterval(timerInterval);
+      document.getElementById("quizView").classList.add("hidden");
+      document.getElementById("resultView").classList.add("hidden");
+      document.getElementById("wrongCenterView").classList.add("hidden");
+      document.getElementById("homeView").classList.remove("hidden");
+      renderHome();
+    }
+
+    // ==================== 🖼️ 原圖管理中心 ====================
+    function openImageManager(focusImgKey = null) {
+      const modal = document.getElementById("imageManagerModal");
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+
+      const schoolSelect = document.getElementById("imgFilterSchool");
+      const schools = [...new Set(questionBank.map(q => q.school))];
+      schoolSelect.innerHTML = `<option value="ALL">全部學校</option>` + schools.map(s => `<option value="${s}">${s}</option>`).join("");
+
+      if (focusImgKey) document.getElementById("imgFilterOnlyNeeded").checked = false;
+      renderImageManagerList(focusImgKey);
+    }
+
+    function closeImageManager() {
+      const modal = document.getElementById("imageManagerModal");
+      modal.classList.add("hidden");
+      modal.classList.remove("flex");
+      if (!document.getElementById("quizView").classList.contains("hidden")) renderQuestions();
+    }
+
+    function renderImageManagerList(focusImgKey = null) {
+      const list = document.getElementById("imageManagerList");
+      const filterSchool = document.getElementById("imgFilterSchool").value;
+      const onlyNeeded = document.getElementById("imgFilterOnlyNeeded").checked;
+
+      const bytes = new Blob([JSON.stringify(customImages)]).size;
+      document.getElementById("imgStorageInfo").textContent = `本機貼圖快取：${(bytes / 1024).toFixed(1)} KB`;
+
+      const filtered = questionBank.filter(item => {
+        if (filterSchool !== "ALL" && item.school !== filterSchool) return false;
+        if (onlyNeeded && !item.imgKey) return false;
+        return true;
+      });
+
+      list.innerHTML = "";
+      if (filtered.length === 0) {
+        list.innerHTML = `<div class="text-center text-slate-400 py-10">目前篩選條件下沒有需要附圖的題目。</div>`;
+        return;
+      }
+
+      filtered.forEach(item => {
+        const key = item.imgKey || `custom_${item.id}`;
+        const localDataUrl = customImages[key];
+        const githubPath = `images/${key}.png`;
+
+        const row = document.createElement("div");
+        row.id = `img-mgr-row-${key}`;
+        row.className = `bg-white rounded-2xl border p-4 shadow-sm flex flex-col md:flex-row gap-4 items-start ${focusImgKey === key ? "border-blue-500 ring-2 ring-blue-200" : "border-slate-200"}`;
+
+        row.innerHTML = `
+          <div class="flex-1 space-y-1.5">
+            <div class="flex items-center gap-2 flex-wrap">
+              <span class="text-xs font-bold bg-slate-800 text-white px-2 py-0.5 rounded">${item.school} 第${item.num}題</span>
+              <span class="text-xs font-mono bg-slate-100 text-slate-600 px-2 py-0.5 rounded">檔名：${githubPath}</span>
+              <span id="status-badge-${key}" class="text-xs font-bold px-2 py-0.5 rounded ${localDataUrl ? "bg-emerald-100 text-emerald-800" : "bg-slate-100 text-slate-500"}">
+                ${localDataUrl ? "✅ 已載入（貼上/同步原圖）" : "🔍 偵測 GitHub 路徑中..."}
+              </span>
+            </div>
+            <p class="text-sm text-slate-700 line-clamp-2">${item.q}</p>
+            <div class="flex flex-wrap items-center gap-2 pt-2">
+              <div tabindex="0" onpaste="handlePasteImage(event, '${key}')"
+                class="paste-zone flex-1 min-w-[200px] border-2 border-dashed border-amber-400 bg-amber-50/60 rounded-xl px-3 py-2 text-xs text-amber-900 cursor-pointer text-center font-medium">
+                📋 點一下這裡，按 <strong>Ctrl + V</strong> 貼上截圖
+              </div>
+              <label class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold px-3 py-2 rounded-xl text-xs cursor-pointer">
+                📁 選取圖片檔
+                <input type="file" accept="image/*" class="hidden" onchange="handleFileImage(event, '${key}')">
+              </label>
+              ${localDataUrl ? `<button onclick="removeCustomImage('${key}')" class="bg-rose-50 hover:bg-rose-100 text-rose-700 font-bold px-3 py-2 rounded-xl text-xs">🗑️ 移除貼圖</button>` : ""}
+            </div>
+          </div>
+
+          <div class="w-full md:w-48 h-32 bg-slate-100 rounded-xl border border-slate-200 flex items-center justify-center overflow-hidden shrink-0 relative">
+            ${localDataUrl
+              ? `<img src="${localDataUrl}" class="max-w-full max-h-full object-contain" />`
+              : `<img src="${githubPath}" class="max-w-full max-h-full object-contain"
+                   onload="document.getElementById('status-badge-${key}').className='text-xs font-bold px-2 py-0.5 rounded bg-emerald-100 text-emerald-800'; document.getElementById('status-badge-${key}').textContent='✅ 已載入（GitHub images/ 原圖）';"
+                   onerror="this.style.display='none'; document.getElementById('no-img-tip-${key}').classList.remove('hidden'); document.getElementById('status-badge-${key}').textContent='⚪ 尚未上傳原圖';" />
+                 <div id="no-img-tip-${key}" class="hidden text-[11px] text-slate-400 text-center px-2">尚未放置<br>${githubPath}</div>`
+            }
+          </div>
+        `;
+        list.appendChild(row);
+      });
+
+      if (focusImgKey) {
+        setTimeout(() => {
+          const el = document.getElementById(`img-mgr-row-${focusImgKey}`);
+          if (el) el.scrollIntoView({ behavior: "smooth", block: "center" });
+        }, 100);
+      }
+    }
+
+    function handlePasteImage(event, key) {
+      const items = (event.clipboardData || event.originalEvent.clipboardData).items;
+      for (let i = 0; i < items.length; i++) {
+        if (items[i].type.indexOf("image") !== -1) {
+          compressAndStoreImage(items[i].getAsFile(), key);
+          event.preventDefault();
+          return;
+        }
+      }
+      alert("剪貼簿裡沒有偵測到圖片！請先截圖後再貼上。");
+    }
+
+    function handleFileImage(event, key) {
+      const file = event.target.files[0];
+      if (file) compressAndStoreImage(file, key);
+    }
+
+    function compressAndStoreImage(fileOrBlob, key) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const img = new Image();
+        img.onload = function() {
+          const canvas = document.createElement("canvas");
+          const maxW = 800;
+          let w = img.width, h = img.height;
+          if (w > maxW) { h = Math.round((h * maxW) / w); w = maxW; }
+          canvas.width = w; canvas.height = h;
+          canvas.getContext("2d").drawImage(img, 0, 0, w, h);
+          customImages[key] = canvas.toDataURL("image/jpeg", 0.82);
+          saveImagesToStorage();
+          renderImageManagerList();
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(fileOrBlob);
+    }
+
+    function removeCustomImage(key) {
+      delete customImages[key];
+      saveImagesToStorage();
+      renderImageManagerList();
+    }
+
+    // ==================== ☁️ Google Sheets 雲端成績上傳 ====================
+    function updateCloudStatusUI() {
+      const dot = document.getElementById("cloudStatusDot");
+      dot.className = (gasWebAppUrl && gasWebAppUrl.startsWith("https://"))
+        ? "w-2 h-2 rounded-full bg-emerald-300"
+        : "w-2 h-2 rounded-full bg-rose-400";
+    }
+
+    function openCloudModal() {
+      document.getElementById("gasUrlInput").value = gasWebAppUrl;
+      document.getElementById("gasTestResult").classList.add("hidden");
+      const m = document.getElementById("cloudModal");
+      m.classList.remove("hidden"); m.classList.add("flex");
+    }
+
+    function closeCloudModal() {
+      const m = document.getElementById("cloudModal");
+      m.classList.add("hidden"); m.classList.remove("flex");
+    }
+
+    function saveGasUrl() {
+      const url = document.getElementById("gasUrlInput").value.trim();
+      gasWebAppUrl = url;
+      localStorage.setItem(STORAGE_KEYS.GAS_URL, url);
+      updateCloudStatusUI();
+      showGasTestMsg("✅ 已儲存 Google Apps Script 網址！", "bg-emerald-50 text-emerald-800 border border-emerald-200");
+    }
+
+    function clearGasUrl() {
+      gasWebAppUrl = "";
+      document.getElementById("gasUrlInput").value = "";
+      localStorage.removeItem(STORAGE_KEYS.GAS_URL);
+      updateCloudStatusUI();
+      showGasTestMsg("已清除雲端設定。", "bg-slate-100 text-slate-700");
+    }
+
+    function showGasTestMsg(text, cls) {
+      const box = document.getElementById("gasTestResult");
+      box.textContent = text;
+      box.className = `p-3 rounded-xl text-xs font-medium ${cls}`;
+      box.classList.remove("hidden");
+    }
+
+    function copyGasCode() {
+      navigator.clipboard.writeText(document.getElementById("gasSampleCode").textContent)
+        .then(() => alert("✅ 已複製 Google Apps Script 程式碼！"));
+    }
+
+    async function testGasConnection() {
+      const url = document.getElementById("gasUrlInput").value.trim();
+      if (!url) return alert("請先貼上 Google Apps Script 網址！");
+      showGasTestMsg("⏳ 正在傳送測試資料至 Google 試算表...", "bg-blue-50 text-blue-800");
+      try {
+        await fetch(url, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify({ quizName: "連線測試（七上歷史題庫）", correctCount: 25, totalCount: 25, rawScore: "100/100", score100: 100, timeSpent: "00:10", wrongList: "測試成功" })
+        });
+        showGasTestMsg("✅ 測試封包已成功送出！請打開 Google 試算表確認。", "bg-emerald-50 text-emerald-800 border border-emerald-200");
+      } catch (err) {
+        showGasTestMsg("❌ 傳送失敗，請確認網址與部署權限。", "bg-rose-50 text-rose-800 border border-rose-200");
+      }
+    }
+
+    async function uploadScoreToCloud(payload) {
+      const banner = document.getElementById("cloudSyncBanner");
+      if (!gasWebAppUrl) {
+        banner.innerHTML = `⚪ 尚未設定 Google 雲端試算表網址`;
+        banner.className = "max-w-xl mx-auto mb-5 text-xs py-2 px-4 rounded-xl bg-slate-100 text-slate-600";
+        return;
+      }
+      banner.innerHTML = `⏳ 正在將本次成績同步至 Google 試算表...`;
+      banner.className = "max-w-xl mx-auto mb-5 text-xs py-2 px-4 rounded-xl bg-blue-50 text-blue-700";
+      try {
+        await fetch(gasWebAppUrl, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify(payload)
+        });
+        banner.innerHTML = `✅ 成績與錯題紀錄已自動上傳至 Google 試算表！`;
+        banner.className = "max-w-xl mx-auto mb-5 text-xs py-2 px-4 rounded-xl bg-emerald-50 text-emerald-800 border border-emerald-200 font-medium";
+      } catch (e) {
+        banner.innerHTML = `⚠️ 雲端同步發生網路錯誤，成績已保留於本機畫面。`;
+        banner.className = "max-w-xl mx-auto mb-5 text-xs py-2 px-4 rounded-xl bg-rose-50 text-rose-700";
+      }
+    }
+
+    // ==================== 📥 題庫擴充與 GitHub 同步匯出 ====================
+    function openImportModal() {
+      const m = document.getElementById("importModal");
+      m.classList.remove("hidden"); m.classList.add("flex");
+    }
+
+    function closeImportModal() {
+      const m = document.getElementById("importModal");
+      m.classList.add("hidden"); m.classList.remove("flex");
+    }
+
+    function importBankJson() {
+      const raw = document.getElementById("jsonImportTextarea").value.trim();
+      if (!raw) return;
+      try {
+        const parsed = JSON.parse(raw);
+        const newQuestions = Array.isArray(parsed) ? parsed : (parsed.questions || []);
+        if (parsed.customImages) {
+          customImages = { ...customImages, ...parsed.customImages };
+          saveImagesToStorage();
+        }
+        if (!Array.isArray(newQuestions) || newQuestions.length === 0) {
+          alert("JSON 格式不正確或沒有包含題目資料！");
+          return;
+        }
+        const existingIds = new Set(questionBank.map(q => q.id));
+        let added = 0;
+        newQuestions.forEach(q => {
+          if (q.id && !existingIds.has(q.id)) {
+            questionBank.push(q);
+            existingIds.add(q.id);
+            added++;
+          }
+        });
+        saveBankToStorage();
+        renderHome();
+        closeImportModal();
+        document.getElementById("jsonImportTextarea").value = "";
+        alert(`✅ 成功合併匯入 ${added} 道新題目！目前題庫總計 ${questionBank.length} 題。`);
+      } catch (e) {
+        alert("❌ JSON 解析失敗，請確認貼上的格式完整無誤！");
+      }
+    }
+
+    function exportQuestionsJsFile() {
+      const payload = { questions: questionBank, customImages };
+      const jsContent = `window.EXTERNAL_QUESTION_BANK = ${JSON.stringify(payload, null, 2)};\n`;
+      const blob = new Blob([jsContent], { type: "application/javascript;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "questions.js";
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function exportFullBank() {
+      const dataStr = JSON.stringify({ questions: questionBank, customImages }, null, 2);
+      const blob = new Blob([dataStr], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `his_exam_bank_backup_${new Date().toISOString().slice(0,10)}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function resetToCloudOrDefault() {
+      if (confirm("確定要清除本機瀏覽器快取，重新讀取 GitHub 上的 questions.js 雲端題庫嗎？")) {
+        localStorage.removeItem(STORAGE_KEYS.BANK);
+        localStorage.removeItem(STORAGE_KEYS.IMAGES);
+        loadFromStorage();
+        renderHome();
+        closeImportModal();
+      }
+    }
+  </script>
+</body>
+</html>
