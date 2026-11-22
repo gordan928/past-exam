@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>國中七上第二次段考｜六大主科跨校考古題總入口</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap');
+    body {
+      font-family: 'Noto Sans TC', sans-serif;
+      background-color: #f8fafc;
+    }
+    .subject-card {
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+    }
+    .subject-card:hover {
+      transform: translateY(-4px);
+    }
+  </style>
+</head>
+<body class="text-slate-800 antialiased min-h-screen flex flex-col">
+
+  <!-- 頂部主視覺橫幅 -->
+  <header class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white shadow-lg">
+    <div class="max-w-6xl mx-auto px-4 py-8 md:py-10">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+        <div class="space-y-2">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/15 text-xs font-bold text-amber-300">
+            <span>🎓 114學年度第一學期第二次段考</span>
+            <span>・</span>
+            <span>跨校真題互動測驗平台</span>
+          </div>
+          <h1 class="text-2xl md:text-3xl font-black tracking-wide">
+            國中七上各校考古題統整中心
+          </h1>
+          <p class="text-sm text-slate-300 max-w-2xl leading-relaxed">
+            支援「單校原卷完整模擬」、「跨校隨機 25 題測驗」、「即時詳解練習」與「雲端成績自動同步」。
+          </p>
+        </div>
+
+        <!-- 總體數據統計卡片 -->
+        <div class="grid grid-cols-2 gap-3 shrink-0">
+          <div class="bg-white/10 backdrop-blur-sm border border-white/15 rounded-2xl px-5 py-3 text-center">
+            <div class="text-xs text-slate-300">測驗科目</div>
+            <div class="text-2xl font-black text-white mt-0.5">6 科</div>
+          </div>
+          <div class="bg-white/10 backdrop-blur-sm border border-white/15 rounded-2xl px-5 py-3 text-center">
+            <div class="text-xs text-slate-300">本機待複習</div>
+            <div id="totalAllWrong" class="text-2xl font-black text-rose-300 mt-0.5">0 題</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- 主內容區 -->
+  <main class="flex-1 max-w-6xl w-full mx-auto px-4 py-8 space-y-6">
+
+    <!-- 操作提示與狀態列 -->
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 md:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <span class="text-2xl">🧭</span>
+        <div>
+          <h2 class="text-base font-bold text-slate-800">請選擇要練習的科目</h2>
+          <p class="text-xs text-slate-500">系統會自動偵測這台裝置在各科累積的「待複習錯題數」，點擊科目即可進入測驗或錯題複習中心。</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-2">
+        <button onclick="refreshStats()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold px-3.5 py-2 rounded-xl text-xs transition">
+          🔄 重新整理錯題統計
+        </button>
+      </div>
+    </div>
+
+    <!-- 六大科目卡片網格 -->
+    <section id="subjectsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></section>
+
+  </main>
+
+  <!-- 頁尾 -->
+  <footer class="border-t border-slate-200 bg-white py-5 text-center text-xs text-slate-400">
+    國中七上第二次段考跨校考古題互動題庫系統 ・ 支援電腦、平板與手機自動雲端同步
+  </footer>
+
+  <script>
+    // ==================== 六大科目設定（可依實際檔名微調 url） ====================
+    const SUBJECTS = [
+      {
+        id: "chi",
+        name: "國文科",
+        enName: "CHINESE",
+        icon: "📖",
+        url: "https://gordan928.github.io/past-exam/chi/past-exam-chi.html",
+        storageWrongKey: "chi_wrong_ids_v1",
+        topics: "字音字形・成語詞義・絕句與律詩賞析・文言文與白話文閱讀理解",
+        btnCls: "bg-rose-700 hover:bg-rose-800",
+        borderHover: "hover:border-rose-400",
+        gradientCls: "from-rose-700 to-pink-600"
+      },
+      {
+        id: "eng",
+        name: "英文科",
+        enName: "ENGLISH",
+        icon: "🔤",
+        url: "https://gordan928.github.io/past-exam/eng/past-exam-eng.html",
+        storageWrongKey: "eng_wrong_ids_v1",
+        topics: "祈使句與 Let's・現在進行式・時間介系詞・克漏字與圖表閱讀",
+        btnCls: "bg-blue-700 hover:bg-blue-800",
+        borderHover: "hover:border-blue-400",
+        gradientCls: "from-blue-800 to-indigo-700"
+      },
+      {
+        id: "bio",
+        name: "生物科",
+        enName: "BIOLOGY",
+        icon: "🧬",
+        url: "https://gordan928.github.io/past-exam/bio/past-exam-bio.html",
+        storageWrongKey: "bio_wrong_ids_v1",
+        topics: "養分與酵素實驗・光合作用・植物維管束運輸・人體消化系統・血液與淋巴循環",
+        btnCls: "bg-emerald-700 hover:bg-emerald-800",
+        borderHover: "hover:border-emerald-400",
+        gradientCls: "from-emerald-700 to-teal-600"
+      },
+      {
+        id: "geo",
+        name: "地理科",
+        enName: "GEOGRAPHY",
+        icon: "🌏",
+        url: "https://gordan928.github.io/past-exam/geo/past-exam-geo.html",
+        storageWrongKey: "geo_wrong_ids_v1",
+        topics: "臺灣地形與海岸離島・天氣與氣候圖判讀・水文與水資源・環境災害與國土保育",
+        btnCls: "bg-teal-700 hover:bg-teal-800",
+        borderHover: "hover:border-teal-400",
+        gradientCls: "from-teal-700 to-cyan-600"
+      },
+      {
+        id: "his",
+        name: "歷史科",
+        enName: "HISTORY",
+        icon: "🏛️",
+        url: "https://gordan928.github.io/past-exam/his/past-exam-his.html",
+        storageWrongKey: "his_wrong_ids_v1",
+        topics: "清帝國時期治臺政策・開港通商與社會文化變遷・沈葆楨與劉銘傳建設・原漢關係",
+        btnCls: "bg-amber-700 hover:bg-amber-800",
+        borderHover: "hover:border-amber-400",
+        gradientCls: "from-amber-700 to-orange-600"
+      },
+      {
+        id: "civ",
+        name: "公民科",
+        enName: "CIVICS",
+        icon: "⚖️",
+        url: "https://gordan928.github.io/past-exam/civ/past-exam-civ.html",
+        storageWrongKey: "civ_wrong_ids_v1",
+        topics: "血親與姻親關係・多元家庭型態與功能・民法平權與親權・家暴防治・少子高齡化與長照",
+        btnCls: "bg-purple-700 hover:bg-purple-800",
+        borderHover: "hover:border-purple-400",
+        gradientCls: "from-purple-800 to-violet-700"
+      }
+    ];
+
+    window.addEventListener("DOMContentLoaded", () => {
+      refreshStats();
+    });
+
+    function refreshStats() {
+      const grid = document.getElementById("subjectsGrid");
+      grid.innerHTML = "";
+
+      let sumWrong = 0;
+
+      SUBJECTS.forEach(sub => {
+        let wrongCount = 0;
+        try {
+          const savedWrong = JSON.parse(localStorage.getItem(sub.storageWrongKey) || "[]");
+          if (Array.isArray(savedWrong)) {
+            wrongCount = savedWrong.length;
+          }
+        } catch (e) {}
+
+        sumWrong += wrongCount;
+
+        const card = document.createElement("div");
+        card.className = `subject-card bg-white rounded-2xl shadow-sm border border-slate-200 ${sub.borderHover} overflow-hidden flex flex-col justify-between`;
+        card.innerHTML = `
+          <div>
+            <div class="bg-gradient-to-r ${sub.gradientCls} px-5 py-4 text-white flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <span class="text-3xl bg-white/15 w-11 h-11 rounded-xl flex items-center justify-center">${sub.icon}</span>
+                <div>
+                  <div class="text-[10px] tracking-widest font-bold text-white/75">${sub.enName}</div>
+                  <h3 class="text-xl font-black tracking-wide">${sub.name}</h3>
+                </div>
+              </div>
+              <div>
+                <span class="text-xs font-bold px-2.5 py-1 rounded-full ${wrongCount > 0 ? "bg-rose-500 text-white shadow-sm" : "bg-white/15 text-white/90"}">
+                  ${wrongCount > 0 ? `📕 待複習 ${wrongCount} 題` : "✅ 無待複習"}
+                </span>
+              </div>
+            </div>
+
+            <div class="p-5">
+              <div class="text-xs text-slate-600 leading-relaxed">
+                <span class="font-bold text-slate-700">考點範圍：</span>${sub.topics}
+              </div>
+            </div>
+          </div>
+
+          <div class="px-5 pb-5">
+            <a href="${sub.url}" class="block w-full text-center ${sub.btnCls} text-white font-bold py-3 rounded-xl text-sm shadow-sm transition">
+              🚀 進入${sub.name}測驗系統
+            </a>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+
+      document.getElementById("totalAllWrong").textContent = `${sumWrong} 題`;
+    }
+  </script>
+</body>
+</html>
