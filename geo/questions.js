@@ -15,7 +15,9 @@ window.EXTERNAL_QUESTION_BANK = {
       ],
       "ans": 1,
       "exp": "(B)由圖(一)★位置與臺灣山脈分布可知，馬太鞍溪發源於臺灣最主要的脊梁山脈——中央山脈。",
-      "group": "【題組一】2025年7月21日颱風薇帕外圍環流夾帶雨勢引發山崩，於花蓮縣馬太鞍溪上游處形成堰塞湖；其後受颱風樺加沙外圍環流暴雨影響多次溢流，9月23日14時50分在30分鐘內傾洩出1,540萬立方公尺湖水，洪水夾帶泥沙沖向下游，使位於馬太鞍溪沖積扇的馬太鞍部落及光復鄉多處遭土石泥流淹沒。馬太鞍溪屬花蓮溪上游支流，最後流入太平洋。災後大批民眾搭乘臺鐵前往花蓮擔任「鏟子超人」協助清淤。請根據敘述與圖(一)回答第1～9題："
+      "group": "【題組一】2025年7月21日颱風薇帕外圍環流夾帶雨勢引發山崩，於花蓮縣馬太鞍溪上游處形成堰塞湖；其後受颱風樺加沙外圍環流暴雨影響多次溢流，9月23日14時50分在30分鐘內傾洩出1,540萬立方公尺湖水，洪水夾帶泥沙沖向下游，使位於馬太鞍溪沖積扇的馬太鞍部落及光復鄉多處遭土石泥流淹沒。馬太鞍溪屬花蓮溪上游支流，最後流入太平洋。災後大批民眾搭乘臺鐵前往花蓮擔任「鏟子超人」協助清淤。請根據敘述與圖(一)回答第1～9題：",
+      "imgKey": "banqiao_geo_q1",
+      "img": "images/banqiao_geo_q1.png"
     },
     {
       "id": "banqiao_geo_2",
@@ -32,7 +34,9 @@ window.EXTERNAL_QUESTION_BANK = {
       ],
       "ans": 2,
       "exp": "(C)中央山脈海拔高聳，等高線數值高且密集，最符合(C)圖海拔 1,000～1,400 公尺以上的高山地形特徵。",
-      "group": "【題組一】2025年7月21日颱風薇帕外圍環流夾帶雨勢引發山崩，於花蓮縣馬太鞍溪上游處形成堰塞湖；其後受颱風樺加沙外圍環流暴雨影響多次溢流，9月23日14時50分在30分鐘內傾洩出1,540萬立方公尺湖水，洪水夾帶泥沙沖向下游，使位於馬太鞍溪沖積扇的馬太鞍部落及光復鄉多處遭土石泥流淹沒。馬太鞍溪屬花蓮溪上游支流，最後流入太平洋。災後大批民眾搭乘臺鐵前往花蓮擔任「鏟子超人」協助清淤。請根據敘述與圖(一)回答第1～9題："
+      "group": "【題組一】2025年7月21日颱風薇帕外圍環流夾帶雨勢引發山崩，於花蓮縣馬太鞍溪上游處形成堰塞湖；其後受颱風樺加沙外圍環流暴雨影響多次溢流，9月23日14時50分在30分鐘內傾洩出1,540萬立方公尺湖水，洪水夾帶泥沙沖向下游，使位於馬太鞍溪沖積扇的馬太鞍部落及光復鄉多處遭土石泥流淹沒。馬太鞍溪屬花蓮溪上游支流，最後流入太平洋。災後大批民眾搭乘臺鐵前往花蓮擔任「鏟子超人」協助清淤。請根據敘述與圖(一)回答第1～9題：",
+      "imgKey": "banqiao_geo_q2",
+      "img": "images/banqiao_geo_q2.png"
     },
     {
       "id": "banqiao_geo_3",
@@ -168,7 +172,9 @@ window.EXTERNAL_QUESTION_BANK = {
       ],
       "ans": 0,
       "exp": "(A)在等高線地形圖上，等高線向高處彎曲凸出者為「河谷／山谷」，甲處等高線向高處凸出，為溪谷位置，登山應避開。",
-      "group": "【題組二】板橋國中舉行登山教育課程，根據圖(二)等高線地形圖回答第10～12題："
+      "group": "【題組二】板橋國中舉行登山教育課程，根據圖(二)等高線地形圖回答第10～12題：",
+      "imgKey": "banqiao_geo_q10",
+      "img": "images/banqiao_geo_q10.png"
     },
     {
       "id": "banqiao_geo_11",
@@ -185,7 +191,9 @@ window.EXTERNAL_QUESTION_BANK = {
       ],
       "ans": 2,
       "exp": "(C)等高線數值由東北向西南遞減，河流由高處流向低處，故由「西南往東北流」（依原卷答案為 A／C 對照，原卷解答表第11題為 A，此處依原卷解答設定並附判讀說明）。",
-      "group": "【題組二】板橋國中舉行登山教育課程，根據圖(二)等高線地形圖回答第10～12題："
+      "group": "【題組二】板橋國中舉行登山教育課程，根據圖(二)等高線地形圖回答第10～12題：",
+      "imgKey": "banqiao_geo_q10",
+      "img": "images/banqiao_geo_q10.png"
     },
     {
       "id": "banqiao_geo_12",
@@ -202,7 +210,9 @@ window.EXTERNAL_QUESTION_BANK = {
       ],
       "ans": 3,
       "exp": "(D)圖(二)等高線間距為 100 公尺，最內圈等高線為 1,800 公尺，山頂高度介於 1,800～1,900 公尺之間，依原卷答案為 D。",
-      "group": "【題組二】板橋國中舉行登山教育課程，根據圖(二)等高線地形圖回答第10～12題："
+      "group": "【題組二】板橋國中舉行登山教育課程，根據圖(二)等高線地形圖回答第10～12題：",
+      "imgKey": "banqiao_geo_q10",
+      "img": "images/banqiao_geo_q10.png"
     },
     {
       "id": "banqiao_geo_13",
@@ -235,7 +245,9 @@ window.EXTERNAL_QUESTION_BANK = {
       ],
       "ans": 1,
       "exp": "(B)甲（馬祖列嶼）、丙（金門列嶼）位於中國東南沿海，原與大陸相連，因海水面上升淹沒低地而形成「大陸島」。",
-      "group": "【題組三】圖(三)為臺灣周邊主要島嶼分布圖，請回答第14～15題："
+      "group": "【題組三】圖(三)為臺灣周邊主要島嶼分布圖，請回答第14～15題：",
+      "imgKey": "banqiao_geo_q14",
+      "img": "images/banqiao_geo_q14.png"
     },
     {
       "id": "banqiao_geo_15",
@@ -252,7 +264,9 @@ window.EXTERNAL_QUESTION_BANK = {
       ],
       "ans": 1,
       "exp": "(B)圖(三)中「辛」位於臺灣東南方外海（蘭嶼附近），非典型的珊瑚礁島（琉球嶼位於西南方外海），故選(B)。",
-      "group": "【題組三】圖(三)為臺灣周邊主要島嶼分布圖，請回答第14～15題："
+      "group": "【題組三】圖(三)為臺灣周邊主要島嶼分布圖，請回答第14～15題：",
+      "imgKey": "banqiao_geo_q14",
+      "img": "images/banqiao_geo_q14.png"
     },
     {
       "id": "banqiao_geo_16",
@@ -284,7 +298,9 @@ window.EXTERNAL_QUESTION_BANK = {
         "(D) 圖中最低點大約是100公尺"
       ],
       "ans": 2,
-      "exp": "(C)花東縱谷平原海拔多在 100～300 公尺左右且谷地平緩，圖(四)起伏達 500～600 公尺，故(C)敘述錯誤。"
+      "exp": "(C)花東縱谷平原海拔多在 100～300 公尺左右且谷地平緩，圖(四)起伏達 500～600 公尺，故(C)敘述錯誤。",
+      "imgKey": "banqiao_geo_q17",
+      "img": "images/banqiao_geo_q17.png"
     },
     {
       "id": "chengzheng_geo_1",
@@ -540,7 +556,9 @@ window.EXTERNAL_QUESTION_BANK = {
         "(D) 海底火山噴發"
       ],
       "ans": 0,
-      "exp": "依誠正國中地理科解答表第16題正解為 (A)。"
+      "exp": "依誠正國中地理科解答表第16題正解為 (A)。",
+      "imgKey": "chengzheng_geo_q16",
+      "img": "images/chengzheng_geo_q16.png"
     },
     {
       "id": "chengzheng_geo_17",
@@ -556,7 +574,9 @@ window.EXTERNAL_QUESTION_BANK = {
         "(D) 陡直的峭壁、深切的峽谷"
       ],
       "ans": 1,
-      "exp": "依誠正國中地理科解答表第17題正解為 (B)。"
+      "exp": "依誠正國中地理科解答表第17題正解為 (B)。",
+      "imgKey": "chengzheng_geo_q17",
+      "img": "images/chengzheng_geo_q17.png"
     },
     {
       "id": "chengzheng_geo_18",
@@ -620,7 +640,9 @@ window.EXTERNAL_QUESTION_BANK = {
         "(D) 立體地形圖"
       ],
       "ans": 0,
-      "exp": "依誠正國中地理科解答表第21題正解為 (A)。"
+      "exp": "依誠正國中地理科解答表第21題正解為 (A)。",
+      "imgKey": "chengzheng_geo_q21",
+      "img": "images/chengzheng_geo_q21.png"
     },
     {
       "id": "chengzheng_geo_22",
@@ -636,7 +658,9 @@ window.EXTERNAL_QUESTION_BANK = {
         "(D) 台地"
       ],
       "ans": 0,
-      "exp": "依誠正國中地理科解答表第22題正解為 (A)。"
+      "exp": "依誠正國中地理科解答表第22題正解為 (A)。",
+      "imgKey": "chengzheng_geo_q21",
+      "img": "images/chengzheng_geo_q21.png"
     },
     {
       "id": "chengzheng_geo_23",
@@ -652,7 +676,9 @@ window.EXTERNAL_QUESTION_BANK = {
         "(D) 丁"
       ],
       "ans": 2,
-      "exp": "依誠正國中地理科解答表第23題正解為 (C)。"
+      "exp": "依誠正國中地理科解答表第23題正解為 (C)。",
+      "imgKey": "chengzheng_geo_q21",
+      "img": "images/chengzheng_geo_q21.png"
     },
     {
       "id": "chengzheng_geo_24",
@@ -668,7 +694,9 @@ window.EXTERNAL_QUESTION_BANK = {
         "(D) 丁"
       ],
       "ans": 3,
-      "exp": "依誠正國中地理科解答表第24題正解為 (D)。"
+      "exp": "依誠正國中地理科解答表第24題正解為 (D)。",
+      "imgKey": "chengzheng_geo_q21",
+      "img": "images/chengzheng_geo_q21.png"
     },
     {
       "id": "chengzheng_geo_25",
@@ -684,7 +712,9 @@ window.EXTERNAL_QUESTION_BANK = {
         "(D) 1050公尺"
       ],
       "ans": 2,
-      "exp": "依誠正國中地理科解答表第25題正解為 (C)。"
+      "exp": "依誠正國中地理科解答表第25題正解為 (C)。",
+      "imgKey": "chengzheng_geo_q21",
+      "img": "images/chengzheng_geo_q21.png"
     },
     {
       "id": "chengzheng_geo_26",
@@ -700,7 +730,9 @@ window.EXTERNAL_QUESTION_BANK = {
         "(D) 南極國小"
       ],
       "ans": 0,
-      "exp": "依誠正國中地理科解答表第26題正解為 (A)。"
+      "exp": "依誠正國中地理科解答表第26題正解為 (A)。",
+      "imgKey": "chengzheng_geo_q26",
+      "img": "images/chengzheng_geo_q26.png"
     },
     {
       "id": "chengzheng_geo_27",
@@ -716,7 +748,9 @@ window.EXTERNAL_QUESTION_BANK = {
         "(D) 斷層海岸如何形成"
       ],
       "ans": 2,
-      "exp": "依誠正國中地理科解答表第27題正解為 (C)。"
+      "exp": "依誠正國中地理科解答表第27題正解為 (C)。",
+      "imgKey": "chengzheng_geo_q26",
+      "img": "images/chengzheng_geo_q26.png"
     },
     {
       "id": "chengzheng_geo_28",
@@ -732,7 +766,9 @@ window.EXTERNAL_QUESTION_BANK = {
         "(D) 澎湖群島"
       ],
       "ans": 0,
-      "exp": "依誠正國中地理科解答表第28題正解為 (A)。"
+      "exp": "依誠正國中地理科解答表第28題正解為 (A)。",
+      "imgKey": "chengzheng_geo_q26",
+      "img": "images/chengzheng_geo_q26.png"
     },
     {
       "id": "chengzheng_geo_29",
@@ -748,7 +784,9 @@ window.EXTERNAL_QUESTION_BANK = {
         "(D) 東沙島"
       ],
       "ans": 2,
-      "exp": "依誠正國中地理科解答表第29題正解為 (C)。"
+      "exp": "依誠正國中地理科解答表第29題正解為 (C)。",
+      "imgKey": "chengzheng_geo_q29",
+      "img": "images/chengzheng_geo_q29.png"
     },
     {
       "id": "chengzheng_geo_30",
@@ -764,7 +802,9 @@ window.EXTERNAL_QUESTION_BANK = {
         "(D) D"
       ],
       "ans": 2,
-      "exp": "依誠正國中地理科解答表第30題正解為 (C)。"
+      "exp": "依誠正國中地理科解答表第30題正解為 (C)。",
+      "imgKey": "chengzheng_geo_q29",
+      "img": "images/chengzheng_geo_q29.png"
     },
     {
       "id": "chengzheng_geo_31",
@@ -780,7 +820,9 @@ window.EXTERNAL_QUESTION_BANK = {
         "(D) 彭佳嶼"
       ],
       "ans": 2,
-      "exp": "依誠正國中地理科解答表第31題正解為 (C)。"
+      "exp": "依誠正國中地理科解答表第31題正解為 (C)。",
+      "imgKey": "chengzheng_geo_q29",
+      "img": "images/chengzheng_geo_q29.png"
     },
     {
       "id": "chengzheng_geo_32",
@@ -796,7 +838,9 @@ window.EXTERNAL_QUESTION_BANK = {
         "(D) D"
       ],
       "ans": 1,
-      "exp": "依誠正國中地理科解答表第32題正解為 (B)。"
+      "exp": "依誠正國中地理科解答表第32題正解為 (B)。",
+      "imgKey": "chengzheng_geo_q29",
+      "img": "images/chengzheng_geo_q29.png"
     },
     {
       "id": "chengzheng_geo_33",
@@ -812,7 +856,9 @@ window.EXTERNAL_QUESTION_BANK = {
         "(D) 東南方"
       ],
       "ans": 1,
-      "exp": "依誠正國中地理科解答表第33題正解為 (B)。"
+      "exp": "依誠正國中地理科解答表第33題正解為 (B)。",
+      "imgKey": "chengzheng_geo_q29",
+      "img": "images/chengzheng_geo_q29.png"
     },
     {
       "id": "chengzheng_geo_34",
@@ -828,7 +874,9 @@ window.EXTERNAL_QUESTION_BANK = {
         "(D) 金門列嶼"
       ],
       "ans": 3,
-      "exp": "依誠正國中地理科解答表第34題正解為 (D)。"
+      "exp": "依誠正國中地理科解答表第34題正解為 (D)。",
+      "imgKey": "chengzheng_geo_q29",
+      "img": "images/chengzheng_geo_q29.png"
     },
     {
       "id": "chengzheng_geo_35",
@@ -844,7 +892,9 @@ window.EXTERNAL_QUESTION_BANK = {
         "(D) D"
       ],
       "ans": 1,
-      "exp": "依誠正國中地理科解答表第35題正解為 (B)。"
+      "exp": "依誠正國中地理科解答表第35題正解為 (B)。",
+      "imgKey": "chengzheng_geo_q29",
+      "img": "images/chengzheng_geo_q29.png"
     },
     {
       "id": "chengzheng_geo_36",
@@ -860,7 +910,9 @@ window.EXTERNAL_QUESTION_BANK = {
         "(D) 臺江國家公園"
       ],
       "ans": 2,
-      "exp": "依誠正國中地理科解答表第36題正解為 (C)。"
+      "exp": "依誠正國中地理科解答表第36題正解為 (C)。",
+      "imgKey": "chengzheng_geo_q29",
+      "img": "images/chengzheng_geo_q29.png"
     },
     {
       "id": "chengzheng_geo_37",
@@ -876,7 +928,9 @@ window.EXTERNAL_QUESTION_BANK = {
         "(D) D"
       ],
       "ans": 1,
-      "exp": "依誠正國中地理科解答表第37題正解為 (B)。"
+      "exp": "依誠正國中地理科解答表第37題正解為 (B)。",
+      "imgKey": "chengzheng_geo_q29",
+      "img": "images/chengzheng_geo_q29.png"
     },
     {
       "id": "chengzheng_geo_38",
@@ -892,7 +946,9 @@ window.EXTERNAL_QUESTION_BANK = {
         "(D) 彰化平原"
       ],
       "ans": 1,
-      "exp": "依誠正國中地理科解答表第38題正解為 (B)。"
+      "exp": "依誠正國中地理科解答表第38題正解為 (B)。",
+      "imgKey": "chengzheng_geo_q38",
+      "img": "images/chengzheng_geo_q38.png"
     },
     {
       "id": "chengzheng_geo_39",
@@ -908,7 +964,9 @@ window.EXTERNAL_QUESTION_BANK = {
         "(D) 中央山脈"
       ],
       "ans": 3,
-      "exp": "依誠正國中地理科解答表第39題正解為 (D)。"
+      "exp": "依誠正國中地理科解答表第39題正解為 (D)。",
+      "imgKey": "chengzheng_geo_q38",
+      "img": "images/chengzheng_geo_q38.png"
     },
     {
       "id": "chengzheng_geo_40",
@@ -924,7 +982,9 @@ window.EXTERNAL_QUESTION_BANK = {
         "(D) 大西洋"
       ],
       "ans": 0,
-      "exp": "依誠正國中地理科解答表第40題正解為 (A)。"
+      "exp": "依誠正國中地理科解答表第40題正解為 (A)。",
+      "imgKey": "chengzheng_geo_q38",
+      "img": "images/chengzheng_geo_q38.png"
     },
     {
       "id": "chengzheng_geo_41",
@@ -940,7 +1000,9 @@ window.EXTERNAL_QUESTION_BANK = {
         "(D) 花東縱谷平原"
       ],
       "ans": 3,
-      "exp": "依誠正國中地理科解答表第41題正解為 (D)。"
+      "exp": "依誠正國中地理科解答表第41題正解為 (D)。",
+      "imgKey": "chengzheng_geo_q38",
+      "img": "images/chengzheng_geo_q38.png"
     },
     {
       "id": "chengzheng_geo_42",
@@ -1020,7 +1082,9 @@ window.EXTERNAL_QUESTION_BANK = {
         "(D) 山脈東西走向，海拔高度低"
       ],
       "ans": 1,
-      "exp": "依誠正國中地理科解答表第46題正解為 (B)。"
+      "exp": "依誠正國中地理科解答表第46題正解為 (B)。",
+      "imgKey": "chengzheng_geo_q46",
+      "img": "images/chengzheng_geo_q46.png"
     },
     {
       "id": "chengzheng_geo_47",
@@ -1036,7 +1100,9 @@ window.EXTERNAL_QUESTION_BANK = {
         "(D) 花東縱谷平原"
       ],
       "ans": 3,
-      "exp": "依誠正國中地理科解答表第47題正解為 (D)。"
+      "exp": "依誠正國中地理科解答表第47題正解為 (D)。",
+      "imgKey": "chengzheng_geo_q46",
+      "img": "images/chengzheng_geo_q46.png"
     },
     {
       "id": "chengzheng_geo_48",
@@ -1052,7 +1118,9 @@ window.EXTERNAL_QUESTION_BANK = {
         "(D) 花東縱谷平原"
       ],
       "ans": 3,
-      "exp": "依誠正國中地理科解答表第48題正解為 (D)。"
+      "exp": "依誠正國中地理科解答表第48題正解為 (D)。",
+      "imgKey": "chengzheng_geo_q46",
+      "img": "images/chengzheng_geo_q46.png"
     },
     {
       "id": "chengzheng_geo_49",
@@ -1068,7 +1136,9 @@ window.EXTERNAL_QUESTION_BANK = {
         "(D) 阿里山山脈"
       ],
       "ans": 1,
-      "exp": "依誠正國中地理科解答表第49題正解為 (B)。"
+      "exp": "依誠正國中地理科解答表第49題正解為 (B)。",
+      "imgKey": "chengzheng_geo_q46",
+      "img": "images/chengzheng_geo_q46.png"
     },
     {
       "id": "chengzheng_geo_50",
@@ -1084,7 +1154,9 @@ window.EXTERNAL_QUESTION_BANK = {
         "(D) 臺中盆地、桃園台地、新竹丘陵"
       ],
       "ans": 0,
-      "exp": "依誠正國中地理科解答表第50題正解為 (A)。"
+      "exp": "依誠正國中地理科解答表第50題正解為 (A)。",
+      "imgKey": "chengzheng_geo_q46",
+      "img": "images/chengzheng_geo_q46.png"
     },
     {
       "id": "dayou_geo_1",
@@ -1180,7 +1252,9 @@ window.EXTERNAL_QUESTION_BANK = {
         "(D) 侵蝕作用較堆積作用明顯"
       ],
       "ans": 0,
-      "exp": "依大有國中地理科解答表第6題正解為 (A)。"
+      "exp": "依大有國中地理科解答表第6題正解為 (A)。",
+      "imgKey": "dayou_geo_q6",
+      "img": "images/dayou_geo_q6.png"
     },
     {
       "id": "dayou_geo_7",
@@ -1212,7 +1286,9 @@ window.EXTERNAL_QUESTION_BANK = {
         "(D) A：菲律賓海板塊、B：歐亞大陸板塊、C：印度—澳洲板塊"
       ],
       "ans": 3,
-      "exp": "依大有國中地理科解答表第8題正解為 (D)。"
+      "exp": "依大有國中地理科解答表第8題正解為 (D)。",
+      "imgKey": "dayou_geo_q8",
+      "img": "images/dayou_geo_q8.png"
     },
     {
       "id": "dayou_geo_9",
@@ -1228,7 +1304,9 @@ window.EXTERNAL_QUESTION_BANK = {
         "(D) 花東縱谷平原"
       ],
       "ans": 3,
-      "exp": "依大有國中地理科解答表第9題正解為 (D)。"
+      "exp": "依大有國中地理科解答表第9題正解為 (D)。",
+      "imgKey": "dayou_geo_q8",
+      "img": "images/dayou_geo_q8.png"
     },
     {
       "id": "dayou_geo_10",
@@ -1260,7 +1338,9 @@ window.EXTERNAL_QUESTION_BANK = {
         "(D) D：玉山山脈"
       ],
       "ans": 2,
-      "exp": "依大有國中地理科解答表第11題正解為 (C)。"
+      "exp": "依大有國中地理科解答表第11題正解為 (C)。",
+      "imgKey": "dayou_geo_q11",
+      "img": "images/dayou_geo_q11.png"
     },
     {
       "id": "dayou_geo_12",
@@ -1421,7 +1501,9 @@ window.EXTERNAL_QUESTION_BANK = {
       ],
       "ans": 2,
       "exp": "依大有國中地理科解答表第21題正解為 (C)。",
-      "group": "【題組一】圖(四)為某地等高線地形圖，圖上數字皆代表附近等高線上之高度，請回答第21～25題："
+      "group": "【題組一】圖(四)為某地等高線地形圖，圖上數字皆代表附近等高線上之高度，請回答第21～25題：",
+      "imgKey": "dayou_geo_q21",
+      "img": "images/dayou_geo_q21.png"
     },
     {
       "id": "dayou_geo_22",
@@ -1438,7 +1520,9 @@ window.EXTERNAL_QUESTION_BANK = {
       ],
       "ans": 0,
       "exp": "依大有國中地理科解答表第22題正解為 (A)。",
-      "group": "【題組一】圖(四)為某地等高線地形圖，圖上數字皆代表附近等高線上之高度，請回答第21～25題："
+      "group": "【題組一】圖(四)為某地等高線地形圖，圖上數字皆代表附近等高線上之高度，請回答第21～25題：",
+      "imgKey": "dayou_geo_q21",
+      "img": "images/dayou_geo_q21.png"
     },
     {
       "id": "dayou_geo_23",
@@ -1455,7 +1539,9 @@ window.EXTERNAL_QUESTION_BANK = {
       ],
       "ans": 1,
       "exp": "依大有國中地理科解答表第23題正解為 (B)。",
-      "group": "【題組一】圖(四)為某地等高線地形圖，圖上數字皆代表附近等高線上之高度，請回答第21～25題："
+      "group": "【題組一】圖(四)為某地等高線地形圖，圖上數字皆代表附近等高線上之高度，請回答第21～25題：",
+      "imgKey": "dayou_geo_q21",
+      "img": "images/dayou_geo_q21.png"
     },
     {
       "id": "dayou_geo_24",
@@ -1472,7 +1558,9 @@ window.EXTERNAL_QUESTION_BANK = {
       ],
       "ans": 2,
       "exp": "依大有國中地理科解答表第24題正解為 (C)。",
-      "group": "【題組一】圖(四)為某地等高線地形圖，圖上數字皆代表附近等高線上之高度，請回答第21～25題："
+      "group": "【題組一】圖(四)為某地等高線地形圖，圖上數字皆代表附近等高線上之高度，請回答第21～25題：",
+      "imgKey": "dayou_geo_q21",
+      "img": "images/dayou_geo_q21.png"
     },
     {
       "id": "dayou_geo_25",
@@ -1489,7 +1577,9 @@ window.EXTERNAL_QUESTION_BANK = {
       ],
       "ans": 0,
       "exp": "依大有國中地理科解答表第25題正解為 (A)。",
-      "group": "【題組一】圖(四)為某地等高線地形圖，圖上數字皆代表附近等高線上之高度，請回答第21～25題："
+      "group": "【題組一】圖(四)為某地等高線地形圖，圖上數字皆代表附近等高線上之高度，請回答第21～25題：",
+      "imgKey": "dayou_geo_q21",
+      "img": "images/dayou_geo_q21.png"
     },
     {
       "id": "dayou_geo_26",
@@ -1659,7 +1749,9 @@ window.EXTERNAL_QUESTION_BANK = {
       ],
       "ans": 3,
       "exp": "依大有國中地理科解答表第35題正解為 (D)。",
-      "group": "【題組三】凡葦一家人過年假期沿臺灣海岸線環島一圈，圖(六)為臺灣海岸分布圖（甲、乙、丙、丁代表不同海岸類型）。請回答第31～35題："
+      "group": "【題組三】凡葦一家人過年假期沿臺灣海岸線環島一圈，圖(六)為臺灣海岸分布圖（甲、乙、丙、丁代表不同海岸類型）。請回答第31～35題：",
+      "imgKey": "dayou_geo_q35",
+      "img": "images/dayou_geo_q35.png"
     },
     {
       "id": "dayou_geo_36",
@@ -1792,7 +1884,9 @@ window.EXTERNAL_QUESTION_BANK = {
         "(D) 等高線圖(D)"
       ],
       "ans": 0,
-      "exp": "依桃園國中地理科解答表第18題正解為 (A)。"
+      "exp": "依桃園國中地理科解答表第18題正解為 (A)。",
+      "imgKey": "taoyuan_geo_q18",
+      "img": "images/taoyuan_geo_q18.png"
     },
     {
       "id": "taoyuan_geo_19",
@@ -1888,7 +1982,9 @@ window.EXTERNAL_QUESTION_BANK = {
         "(D) 苗栗縣"
       ],
       "ans": 2,
-      "exp": "依桃園國中地理科解答表第24題正解為 (C)。"
+      "exp": "依桃園國中地理科解答表第24題正解為 (C)。",
+      "imgKey": "taoyuan_geo_q24",
+      "img": "images/taoyuan_geo_q24.png"
     },
     {
       "id": "taoyuan_geo_25",
@@ -1921,7 +2017,9 @@ window.EXTERNAL_QUESTION_BANK = {
       ],
       "ans": 2,
       "exp": "依桃園國中地理科解答表第26題正解為 (C)。",
-      "group": "【題組一】去年四月花蓮強震使地質鬆動；今年七月豪雨於光復鄉馬太鞍溪上游形成堰塞湖；九月樺加沙颱風強降水造成堰塞湖溢流，泥水土石下泄衝擊光復市區。請回答第23～26題："
+      "group": "【題組一】去年四月花蓮強震使地質鬆動；今年七月豪雨於光復鄉馬太鞍溪上游形成堰塞湖；九月樺加沙颱風強降水造成堰塞湖溢流，泥水土石下泄衝擊光復市區。請回答第23～26題：",
+      "imgKey": "taoyuan_geo_q26",
+      "img": "images/taoyuan_geo_q26.png"
     },
     {
       "id": "taoyuan_geo_27",
@@ -1938,7 +2036,9 @@ window.EXTERNAL_QUESTION_BANK = {
       ],
       "ans": 0,
       "exp": "依桃園國中地理科解答表第27題正解為 (A)。",
-      "group": "【題組二】三國戰略遊戲等高線地形圖戰役情境，請回答第27～30題："
+      "group": "【題組二】三國戰略遊戲等高線地形圖戰役情境，請回答第27～30題：",
+      "imgKey": "taoyuan_geo_q27",
+      "img": "images/taoyuan_geo_q27.png"
     },
     {
       "id": "taoyuan_geo_28",
@@ -1955,7 +2055,9 @@ window.EXTERNAL_QUESTION_BANK = {
       ],
       "ans": 2,
       "exp": "依桃園國中地理科解答表第28題正解為 (C)。",
-      "group": "【題組二】三國戰略遊戲等高線地形圖戰役情境，請回答第27～30題："
+      "group": "【題組二】三國戰略遊戲等高線地形圖戰役情境，請回答第27～30題：",
+      "imgKey": "taoyuan_geo_q27",
+      "img": "images/taoyuan_geo_q27.png"
     },
     {
       "id": "taoyuan_geo_29",
@@ -1972,7 +2074,9 @@ window.EXTERNAL_QUESTION_BANK = {
       ],
       "ans": 2,
       "exp": "依桃園國中地理科解答表第29題正解為 (C)。",
-      "group": "【題組二】三國戰略遊戲等高線地形圖戰役情境，請回答第27～30題："
+      "group": "【題組二】三國戰略遊戲等高線地形圖戰役情境，請回答第27～30題：",
+      "imgKey": "taoyuan_geo_q27",
+      "img": "images/taoyuan_geo_q27.png"
     },
     {
       "id": "taoyuan_geo_30",
@@ -1989,7 +2093,9 @@ window.EXTERNAL_QUESTION_BANK = {
       ],
       "ans": 2,
       "exp": "依桃園國中地理科解答表第30題正解為 (C)。",
-      "group": "【題組二】三國戰略遊戲等高線地形圖戰役情境，請回答第27～30題："
+      "group": "【題組二】三國戰略遊戲等高線地形圖戰役情境，請回答第27～30題：",
+      "imgKey": "taoyuan_geo_q27",
+      "img": "images/taoyuan_geo_q27.png"
     }
   ],
   "customImages": {}
