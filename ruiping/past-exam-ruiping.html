@@ -416,17 +416,16 @@
   <script>
     const SVG_FALLBACKS = {};
 
-    const SUBJECT_META = {
+        const SUBJECT_META = {
       "國文": { icon: "📖", badgeCls: "bg-rose-50 text-rose-700 border-rose-200", btnCls: "bg-rose-700 hover:bg-rose-800", order: 1 },
       "英文": { icon: "🔤", badgeCls: "bg-blue-50 text-blue-700 border-blue-200", btnCls: "bg-blue-700 hover:bg-blue-800", order: 2 },
       "數學": { icon: "📐", badgeCls: "bg-sky-50 text-sky-700 border-sky-200", btnCls: "bg-sky-700 hover:bg-sky-800", order: 3 },
       "生物": { icon: "🧬", badgeCls: "bg-emerald-50 text-emerald-700 border-emerald-200", btnCls: "bg-emerald-700 hover:bg-emerald-800", order: 4 },
-      "地理": { icon: "🌏", badgeCls: "bg-teal-50 text-teal-700 border-teal-200", btnCls: "bg-teal-700 hover:bg-teal-800", order: 5 },
-      "歷史": { icon: "🏛️", badgeCls: "bg-amber-50 text-amber-800 border-amber-200", btnCls: "bg-amber-700 hover:bg-amber-800", order: 6 },
-      "公民": { icon: "⚖️", badgeCls: "bg-purple-50 text-purple-700 border-purple-200", btnCls: "bg-purple-700 hover:bg-purple-800", order: 7 }
+      "社會": { icon: "🌏", badgeCls: "bg-amber-50 text-amber-800 border-amber-200", btnCls: "bg-amber-700 hover:bg-amber-800", order: 5 }
     };
 
-    const ALL_SUBJECT_NAMES = ["國文", "英文", "數學", "生物", "地理", "歷史", "公民"];
+    const ALL_SUBJECT_NAMES = ["國文", "英文", "數學", "生物", "社會"];
+
 
     const DEFAULT_BANK = [];
 
@@ -467,10 +466,13 @@
       }
     }
 
-    function normalizeSubject(raw) {
+        function normalizeSubject(raw) {
       if (!raw) return "未分類";
-      return String(raw).replace(/科$/, "").trim();
+      const s = String(raw).replace(/科$/, "").trim();
+      if (["地理", "歷史", "公民", "社會"].includes(s)) return "社會";
+      return s;
     }
+
 
     function loadFromStorage() {
       const cloudQuestions = (window.EXTERNAL_QUESTION_BANK && Array.isArray(window.EXTERNAL_QUESTION_BANK.questions))
