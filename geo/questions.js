@@ -380,7 +380,9 @@ window.EXTERNAL_QUESTION_BANK = {
         "(D) 琉球嶼"
       ],
       "ans": 2,
-      "exp": "依誠正國中地理科解答表第5題正解為 (C)。"
+      "exp": "依誠正國中地理科解答表第5題正解為 (C)。",
+      "imgKey": "chengzheng_geo_q5",
+      "img": "images/chengzheng_geo_q5.png"
     },
     {
       "id": "chengzheng_geo_6",
@@ -404,15 +406,17 @@ window.EXTERNAL_QUESTION_BANK = {
       "exam": "114上第二次段考",
       "num": 7,
       "points": 2,
-      "q": "臺灣地形景觀多樣，但下列哪一地形圖，在臺灣無法觀察到？",
+      "q": "臺灣地形景觀多樣，但下列哪一張地形圖所代表的地形，在臺灣無法觀察到？",
       "options": [
-        "(A) 平原等高線地形圖",
-        "(B) 高原等高線地形圖",
-        "(C) 山地等高線地形圖",
-        "(D) 盆地等高線地形圖"
+        "(A) 圖(A)",
+        "(B) 圖(B)",
+        "(C) 圖(C)",
+        "(D) 圖(D)"
       ],
       "ans": 1,
-      "exp": "依誠正國中地理科解答表第7題正解為 (B)。"
+      "exp": "(B)圖(B)呈現海拔較高且頂部平坦廣闊的「高原」地形；臺灣因面積較小且板塊擠壓造山劇烈，缺乏大面積高原，故無法在臺灣觀察到。其餘(A)平原、(C)山地、(D)盆地臺灣皆有分布。",
+      "imgKey": "chengzheng_geo_q7_opts",
+      "img": "images/chengzheng_geo_q7_opts.png"
     },
     {
       "id": "chengzheng_geo_8",
@@ -624,7 +628,9 @@ window.EXTERNAL_QUESTION_BANK = {
         "(D) 1"
       ],
       "ans": 1,
-      "exp": "依誠正國中地理科解答表第20題正解為 (B)。"
+      "exp": "依誠正國中地理科解答表第20題正解為 (B)。",
+      "imgKey": "chengzheng_geo_q20",
+      "img": "images/chengzheng_geo_q20.png"
     },
     {
       "id": "chengzheng_geo_21",
@@ -1164,15 +1170,17 @@ window.EXTERNAL_QUESTION_BANK = {
       "exam": "114上第二次段考",
       "num": 1,
       "points": 2.5,
-      "q": "胤傑在上完地理課後，決定到圖書館借閱臺灣的等高線地形圖，下列哪一種地形不會出現在該等高線地形圖上？",
+      "q": "胤傑在上完地理課後，決定到圖書館借閱臺灣的地形圖，下列哪一張圖所代表的地形不會出現在臺灣的地形圖上？",
       "options": [
-        "(A) 高原",
-        "(B) 盆地",
-        "(C) 丘陵",
-        "(D) 平原"
+        "(A) 圖(A)",
+        "(B) 圖(B)",
+        "(C) 圖(C)",
+        "(D) 圖(D)"
       ],
       "ans": 0,
-      "exp": "依大有國中地理科解答表第1題正解為 (A)。"
+      "exp": "(A)圖(A)代表海拔高且頂部平坦的「高原」地形，臺灣缺乏大面積高原，故不會出現在臺灣的地形圖上。",
+      "imgKey": "dayou_geo_q1_opts",
+      "img": "images/dayou_geo_q1_opts.png"
     },
     {
       "id": "dayou_geo_2",
@@ -1180,7 +1188,7 @@ window.EXTERNAL_QUESTION_BANK = {
       "exam": "114上第二次段考",
       "num": 2,
       "points": 2.5,
-      "q": "承上題，臺灣沒有該種地形的原因為何？",
+      "q": "承上題，附圖中無法在臺灣觀察到的地形（圖(A)高原），臺灣沒有該種地形的原因為何？",
       "options": [
         "(A) 臺灣山脈位置偏東",
         "(B) 臺灣島面積較小",
@@ -1188,7 +1196,9 @@ window.EXTERNAL_QUESTION_BANK = {
         "(D) 臺灣河川沖積作用不顯著"
       ],
       "ans": 1,
-      "exp": "依大有國中地理科解答表第2題正解為 (B)。"
+      "exp": "(B)臺灣島面積較小且處於板塊擠壓造山帶，山多平原少，難以形成廣闊的高原地形。",
+      "imgKey": "dayou_geo_q1_opts",
+      "img": "images/dayou_geo_q1_opts.png"
     },
     {
       "id": "dayou_geo_3",
@@ -1270,7 +1280,9 @@ window.EXTERNAL_QUESTION_BANK = {
         "(D) 臺北地區有北回歸線通過，此時受到太陽直射影響"
       ],
       "ans": 1,
-      "exp": "依大有國中地理科解答表第7題正解為 (B)。"
+      "exp": "依大有國中地理科解答表第7題正解為 (B)。",
+      "imgKey": "dayou_geo_q7",
+      "img": "images/dayou_geo_q7.png"
     },
     {
       "id": "dayou_geo_8",
@@ -1596,7 +1608,9 @@ window.EXTERNAL_QUESTION_BANK = {
       ],
       "ans": 0,
       "exp": "依大有國中地理科解答表第26題正解為 (A)。",
-      "group": "【題組二】1696年福建火藥庫爆炸致硫磺短缺，郁永河於1697年抵臺灣府並沿西部海岸北上前往北投採硫，著《裨海記遊》。請閱讀相關段落與圖(五)回答第26～30題："
+      "group": "【題組二】1696年福建火藥庫爆炸致硫磺短缺，郁永河於1697年抵臺灣府並沿西部海岸北上前往北投採硫，著《裨海記遊》。請閱讀相關段落與圖(五)回答第26～30題：",
+      "imgKey": "dayou_geo_q26",
+      "img": "images/dayou_geo_q26.png"
     },
     {
       "id": "dayou_geo_27",
@@ -1613,7 +1627,9 @@ window.EXTERNAL_QUESTION_BANK = {
       ],
       "ans": 3,
       "exp": "依大有國中地理科解答表第27題正解為 (D)。",
-      "group": "【題組二】1696年福建火藥庫爆炸致硫磺短缺，郁永河於1697年抵臺灣府並沿西部海岸北上前往北投採硫，著《裨海記遊》。請閱讀相關段落與圖(五)回答第26～30題："
+      "group": "【題組二】1696年福建火藥庫爆炸致硫磺短缺，郁永河於1697年抵臺灣府並沿西部海岸北上前往北投採硫，著《裨海記遊》。請閱讀相關段落與圖(五)回答第26～30題：",
+      "imgKey": "dayou_geo_q26",
+      "img": "images/dayou_geo_q26.png"
     },
     {
       "id": "dayou_geo_28",
@@ -1630,7 +1646,9 @@ window.EXTERNAL_QUESTION_BANK = {
       ],
       "ans": 3,
       "exp": "依大有國中地理科解答表第28題正解為 (D)。",
-      "group": "【題組二】1696年福建火藥庫爆炸致硫磺短缺，郁永河於1697年抵臺灣府並沿西部海岸北上前往北投採硫，著《裨海記遊》。請閱讀相關段落與圖(五)回答第26～30題："
+      "group": "【題組二】1696年福建火藥庫爆炸致硫磺短缺，郁永河於1697年抵臺灣府並沿西部海岸北上前往北投採硫，著《裨海記遊》。請閱讀相關段落與圖(五)回答第26～30題：",
+      "imgKey": "dayou_geo_q26",
+      "img": "images/dayou_geo_q26.png"
     },
     {
       "id": "dayou_geo_29",
@@ -1647,7 +1665,9 @@ window.EXTERNAL_QUESTION_BANK = {
       ],
       "ans": 2,
       "exp": "依大有國中地理科解答表第29題正解為 (C)。",
-      "group": "【題組二】1696年福建火藥庫爆炸致硫磺短缺，郁永河於1697年抵臺灣府並沿西部海岸北上前往北投採硫，著《裨海記遊》。請閱讀相關段落與圖(五)回答第26～30題："
+      "group": "【題組二】1696年福建火藥庫爆炸致硫磺短缺，郁永河於1697年抵臺灣府並沿西部海岸北上前往北投採硫，著《裨海記遊》。請閱讀相關段落與圖(五)回答第26～30題：",
+      "imgKey": "dayou_geo_q26",
+      "img": "images/dayou_geo_q26.png"
     },
     {
       "id": "dayou_geo_30",
@@ -1664,7 +1684,9 @@ window.EXTERNAL_QUESTION_BANK = {
       ],
       "ans": 3,
       "exp": "依大有國中地理科解答表第30題正解為 (D)。",
-      "group": "【題組二】1696年福建火藥庫爆炸致硫磺短缺，郁永河於1697年抵臺灣府並沿西部海岸北上前往北投採硫，著《裨海記遊》。請閱讀相關段落與圖(五)回答第26～30題："
+      "group": "【題組二】1696年福建火藥庫爆炸致硫磺短缺，郁永河於1697年抵臺灣府並沿西部海岸北上前往北投採硫，著《裨海記遊》。請閱讀相關段落與圖(五)回答第26～30題：",
+      "imgKey": "dayou_geo_q26",
+      "img": "images/dayou_geo_q26.png"
     },
     {
       "id": "dayou_geo_31",
@@ -1681,7 +1703,9 @@ window.EXTERNAL_QUESTION_BANK = {
       ],
       "ans": 0,
       "exp": "依大有國中地理科解答表第31題正解為 (A)。",
-      "group": "【題組三】凡葦一家人過年假期沿臺灣海岸線環島一圈，圖(六)為臺灣海岸分布圖（甲、乙、丙、丁代表不同海岸類型）。請回答第31～35題："
+      "group": "【題組三】凡葦一家人過年假期沿臺灣海岸線環島一圈，圖(六)為臺灣海岸分布圖（甲、乙、丙、丁代表不同海岸類型）。請回答第31～35題：",
+      "imgKey": "dayou_geo_q31",
+      "img": "images/dayou_geo_q31.png"
     },
     {
       "id": "dayou_geo_32",
@@ -1698,7 +1722,9 @@ window.EXTERNAL_QUESTION_BANK = {
       ],
       "ans": 1,
       "exp": "依大有國中地理科解答表第32題正解為 (B)。",
-      "group": "【題組三】凡葦一家人過年假期沿臺灣海岸線環島一圈，圖(六)為臺灣海岸分布圖（甲、乙、丙、丁代表不同海岸類型）。請回答第31～35題："
+      "group": "【題組三】凡葦一家人過年假期沿臺灣海岸線環島一圈，圖(六)為臺灣海岸分布圖（甲、乙、丙、丁代表不同海岸類型）。請回答第31～35題：",
+      "imgKey": "dayou_geo_q31",
+      "img": "images/dayou_geo_q31.png"
     },
     {
       "id": "dayou_geo_33",
@@ -1715,7 +1741,9 @@ window.EXTERNAL_QUESTION_BANK = {
       ],
       "ans": 1,
       "exp": "依大有國中地理科解答表第33題正解為 (B)。",
-      "group": "【題組三】凡葦一家人過年假期沿臺灣海岸線環島一圈，圖(六)為臺灣海岸分布圖（甲、乙、丙、丁代表不同海岸類型）。請回答第31～35題："
+      "group": "【題組三】凡葦一家人過年假期沿臺灣海岸線環島一圈，圖(六)為臺灣海岸分布圖（甲、乙、丙、丁代表不同海岸類型）。請回答第31～35題：",
+      "imgKey": "dayou_geo_q31",
+      "img": "images/dayou_geo_q31.png"
     },
     {
       "id": "dayou_geo_34",
@@ -1732,7 +1760,9 @@ window.EXTERNAL_QUESTION_BANK = {
       ],
       "ans": 3,
       "exp": "依大有國中地理科解答表第34題正解為 (D)。",
-      "group": "【題組三】凡葦一家人過年假期沿臺灣海岸線環島一圈，圖(六)為臺灣海岸分布圖（甲、乙、丙、丁代表不同海岸類型）。請回答第31～35題："
+      "group": "【題組三】凡葦一家人過年假期沿臺灣海岸線環島一圈，圖(六)為臺灣海岸分布圖（甲、乙、丙、丁代表不同海岸類型）。請回答第31～35題：",
+      "imgKey": "dayou_geo_q31",
+      "img": "images/dayou_geo_q31.png"
     },
     {
       "id": "dayou_geo_35",
@@ -1750,8 +1780,8 @@ window.EXTERNAL_QUESTION_BANK = {
       "ans": 3,
       "exp": "依大有國中地理科解答表第35題正解為 (D)。",
       "group": "【題組三】凡葦一家人過年假期沿臺灣海岸線環島一圈，圖(六)為臺灣海岸分布圖（甲、乙、丙、丁代表不同海岸類型）。請回答第31～35題：",
-      "imgKey": "dayou_geo_q35",
-      "img": "images/dayou_geo_q35.png"
+      "imgKey": "dayou_geo_q31",
+      "img": "images/dayou_geo_q31.png"
     },
     {
       "id": "dayou_geo_36",
@@ -1768,7 +1798,9 @@ window.EXTERNAL_QUESTION_BANK = {
       ],
       "ans": 0,
       "exp": "依大有國中地理科解答表第36題正解為 (A)。",
-      "group": "【題組四】圖(七)為臺灣周遭離島分布圖，請根據圖片回答第36～40題："
+      "group": "【題組四】圖(七)為臺灣周遭離島分布圖，請根據圖片回答第36～40題：",
+      "imgKey": "dayou_geo_q36",
+      "img": "images/dayou_geo_q36.png"
     },
     {
       "id": "dayou_geo_37",
@@ -1785,7 +1817,9 @@ window.EXTERNAL_QUESTION_BANK = {
       ],
       "ans": 2,
       "exp": "依大有國中地理科解答表第37題正解為 (C)。",
-      "group": "【題組四】圖(七)為臺灣周遭離島分布圖，請根據圖片回答第36～40題："
+      "group": "【題組四】圖(七)為臺灣周遭離島分布圖，請根據圖片回答第36～40題：",
+      "imgKey": "dayou_geo_q36",
+      "img": "images/dayou_geo_q36.png"
     },
     {
       "id": "dayou_geo_38",
@@ -1802,7 +1836,9 @@ window.EXTERNAL_QUESTION_BANK = {
       ],
       "ans": 3,
       "exp": "依大有國中地理科解答表第38題正解為 (D)。",
-      "group": "【題組四】圖(七)為臺灣周遭離島分布圖，請根據圖片回答第36～40題："
+      "group": "【題組四】圖(七)為臺灣周遭離島分布圖，請根據圖片回答第36～40題：",
+      "imgKey": "dayou_geo_q36",
+      "img": "images/dayou_geo_q36.png"
     },
     {
       "id": "dayou_geo_39",
@@ -1819,7 +1855,9 @@ window.EXTERNAL_QUESTION_BANK = {
       ],
       "ans": 2,
       "exp": "依大有國中地理科解答表第39題正解為 (C)。",
-      "group": "【題組四】圖(七)為臺灣周遭離島分布圖，請根據圖片回答第36～40題："
+      "group": "【題組四】圖(七)為臺灣周遭離島分布圖，請根據圖片回答第36～40題：",
+      "imgKey": "dayou_geo_q36",
+      "img": "images/dayou_geo_q36.png"
     },
     {
       "id": "dayou_geo_40",
@@ -1836,7 +1874,9 @@ window.EXTERNAL_QUESTION_BANK = {
       ],
       "ans": 3,
       "exp": "依大有國中地理科解答表第40題正解為 (D)。",
-      "group": "【題組四】圖(七)為臺灣周遭離島分布圖，請根據圖片回答第36～40題："
+      "group": "【題組四】圖(七)為臺灣周遭離島分布圖，請根據圖片回答第36～40題：",
+      "imgKey": "dayou_geo_q36",
+      "img": "images/dayou_geo_q36.png"
     },
     {
       "id": "taoyuan_geo_16",
