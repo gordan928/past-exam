@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>國中七上第二次段考｜七大主科跨校考古題總入口</title>
+  <title>國中七上第二次段考｜六大主科跨校考古題總入口</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap');
@@ -43,7 +43,7 @@
         <div class="grid grid-cols-2 gap-3 shrink-0">
           <div class="bg-white/10 backdrop-blur-sm border border-white/15 rounded-2xl px-5 py-3 text-center">
             <div class="text-xs text-slate-300">測驗科目</div>
-            <div class="text-2xl font-black text-white mt-0.5">7 科</div>
+            <div class="text-2xl font-black text-white mt-0.5">6 科</div>
           </div>
           <div class="bg-white/10 backdrop-blur-sm border border-white/15 rounded-2xl px-5 py-3 text-center">
             <div class="text-xs text-slate-300">本機待複習</div>
@@ -73,6 +73,30 @@
       </div>
     </div>
 
+    <!-- 瑞坪國中歷屆考古題專區橫幅 -->
+    <div class="bg-gradient-to-r from-indigo-900 via-blue-900 to-cyan-900 rounded-2xl shadow-md p-5 md:p-6 text-white flex flex-col md:flex-row md:items-center justify-between gap-4 border border-indigo-700/50">
+      <div class="space-y-1.5">
+        <div class="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-amber-400 text-slate-900 text-xs font-black">
+          <span>🏫 校本歷屆考古題專區</span>
+          <span>・</span>
+          <span>七科整合 × 多學年度切換</span>
+        </div>
+        <h2 class="text-xl md:text-2xl font-black tracking-wide">桃園市立瑞坪國中｜歷屆段考考古題總庫</h2>
+        <p class="text-xs md:text-sm text-blue-100 leading-relaxed max-w-2xl">
+          單一頁面整合國文、英文、數學、生物、地理、歷史、公民七大主科，支援依「科目」與「學年度／段考別」自由切換、原卷模擬與跨年度隨機衝刺。
+        </p>
+      </div>
+      <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 shrink-0">
+        <div class="bg-white/10 border border-white/15 rounded-xl px-4 py-2 text-center">
+          <div class="text-[11px] text-blue-200">瑞坪待複習</div>
+          <div id="ruipingWrongCount" class="text-lg font-black text-rose-300">0 題</div>
+        </div>
+        <a href="https://gordan928.github.io/past-exam/ruiping/past-exam-ruiping.html" class="bg-amber-400 hover:bg-amber-300 text-slate-900 font-black px-5 py-3.5 rounded-xl text-sm shadow-md transition text-center flex items-center justify-center gap-1.5">
+          <span>🚀 進入瑞坪國中專區</span>
+        </a>
+      </div>
+    </div>
+
     <!-- 七大科目卡片網格 -->
     <section id="subjectsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></section>
 
@@ -84,7 +108,7 @@
   </footer>
 
   <script>
-    // ==================== 七大科目設定（可依實際檔名微調 url） ====================
+    // ==================== 六大科目設定（可依實際檔名微調 url） ====================
     const SUBJECTS = [
       {
         id: "chi",
@@ -109,18 +133,6 @@
         btnCls: "bg-blue-700 hover:bg-blue-800",
         borderHover: "hover:border-blue-400",
         gradientCls: "from-blue-800 to-indigo-700"
-      },
-      {
-        id: "math",
-        name: "數學科",
-        enName: "MATHEMATICS",
-        icon: "📐",
-        url: "https://gordan928.github.io/past-exam/math/past-exam-math.html",
-        storageWrongKey: "math_wrong_ids_v1",
-        topics: "因數與倍數・分數的四則運算・一元一次方程式・應用問題解題",
-        btnCls: "bg-sky-700 hover:bg-sky-800",
-        borderHover: "hover:border-sky-400",
-        gradientCls: "from-sky-700 to-cyan-600"
       },
       {
         id: "bio",
@@ -229,6 +241,11 @@
       });
 
       document.getElementById("totalAllWrong").textContent = `${sumWrong} 題`;
+      try {
+        const rpWrong = JSON.parse(localStorage.getItem("ruiping_wrong_ids_v1") || "[]");
+        const rpEl = document.getElementById("ruipingWrongCount");
+        if (rpEl) rpEl.textContent = `${Array.isArray(rpWrong) ? rpWrong.length : 0} 題`;
+      } catch (e) {}
     }
   </script>
 </body>
